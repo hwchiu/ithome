@@ -1,6 +1,7 @@
 [Day1] 淺談 Kubernetes 設計原理
 =============================
 
+
 # 前言
 `Kubernetes` 作為近年來討論度最高的容器管理平台，從自行架設，使用公有雲相關服務甚至到尋求第三方廠商解決方案都已經是日常可見的作法。
 
@@ -19,7 +20,7 @@
 藉由學習這些不同面向功能的實作原理與設計開發理念，我們都能夠有更好的立足點去評估到底 `kubernetes` 是否能夠滿足目前所需，甚至說若需要進行第三方開發改善時，該怎麼下手。
      
      
-# 介紹
+# 架構
 
 `Kubernetes` 作為一個開放原始碼的專案，其所有原始碼都可以在 [Github](https://github.com/kubernetes/kubernetes) 看到，同時也可以在看來自世界各地的使用者與開發者如何合作一起開發這個巨大的專案。
 
@@ -35,9 +36,23 @@
 
 同時加上 `kubernetes` `release` 週期的規則，會使得這些由來自世界各地貢獻者的結晶沒有辦法很即時的被一般使用者與測試。
 
+整個運作流程如下圖
+![](https://imgur.com/VFxfxpr.png)
+
+
 為了使得整體的開發流程更加順暢，如果能夠針對架構比較需要彈性的功能進行架構改造，將介面與實作給獨立出來各自運作。此架構中， `kubernetes` 只要設計介面，並且專注於本身與介面的溝通與整合，第三方的開發者則是專注於開發應用，只要該應用符合介面標準即可。
 
 這種狀況下，第三方的開發者可以自行決定其軟體/產品的 `release` 週期，不需要與 `kubernetes` 本身掛鉤。不但能夠讓整個平台的擴充功能開發更佳流暢，同時使用者也可以更方便地去嘗試各種不同的底層實現。
 
+
+改良後的架構可參考下圖，`kubernetes` 與其他各自的解決方案可以有自己的開發週期
+與流程，彼此之間透過事先定義好的介面進行溝通，如此一來就可以提升整體開發的
+流暢度。
+![](https://imgur.com/FcbTSDc.png)
+
 接下來的29天，會帶領讀者一起探討這些介面的設計以及各種不同應用的實作。
-包含了基於運算單元的 `CRI (Container Runtime Interface)`, 提供平台容器網路連接能力的 `CNI(Container Network Interface)`，提供儲存能力供容器使用的 `CSI (Container Storage Interface)` 以及可以掛載各式各樣系統裝置的 `Device Plugin`.
+包含了
+- 基於運算單元的 `CRI (Container Runtime Interface)`, 
+- 提供平台容器網路連接能力的 `CNI(Container Network Interface)`，
+- 提供儲存能力供容器使用的 `CSI (Container Storage Interface)` 
+- 以及可以掛載各式各樣系統裝置的 `Device Plugin`.
