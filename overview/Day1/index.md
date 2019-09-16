@@ -1,6 +1,17 @@
 [Day1] 淺談 Kubernetes 設計原理
 =============================
 
+2020 It邦幫忙鐵人賽 Kubernetes 原理分析系列文章
+
+- [kubernetes 探討](https://ithelp.ithome.com.tw/articles/10215384/)
+- Container & Open Container Initiative
+- Container Runtime Interface
+- Container Network Interface
+- Container Storage Interface
+- Device Plugin
+- Container Security
+
+有興趣的讀者歡迎到我的網站 https://hwchiu.com 閱讀其他技術文章，有任何錯誤或是討論歡迎直接留言或寄信討論
 
 # 前言
 `Kubernetes` 作為近年來討論度最高的容器管理平台，從自行架設，使用公有雲相關服務甚至到尋求第三方廠商解決方案都已經是日常可見的作法。
