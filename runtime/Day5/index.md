@@ -1,7 +1,9 @@
 [Day5] Kubernetes & CRI (Container Runtime Interface)(I)
 =====================================================
 
-2020 It邦幫忙鐵人賽 Kubernetes 原理分析系列文章
+> 本文同步刊登於 [hwchiu.com - Kubernetes & CRI (I)](https://www.hwchiu.com/kubernetes-cri-i.html)
+
+2020 IT邦幫忙鐵人賽 Kubernetes 原理分析系列文章
 
 - [kubernetes 探討](https://ithelp.ithome.com.tw/articles/10215384/)
 - Container & Open Container Initiative
@@ -156,6 +158,7 @@ service RuntimeService {
 可以參考下圖中的上半部份，而圖中的下半部分則是後來的改變之處
 
 ![](https://i.imgur.com/2XQwc9B.png)
+(圖片擷取自：[kubernetes blog kubernetes-containerd-integration-goes-ga](https://kubernetes.io/blog/2018/05/24/kubernetes-containerd-integration-goes-ga/))
 
 反正最後都是透過 `containerd` 進行操作，而本身也不太需要 `docker` 自己的功能，那是否就直接將 `dockershim` 溝通的角色從 `docker engine` 轉移到 `containerd` 即可。 因此後來又有所謂的 `CRI-Containerd` 的出現。
 
@@ -165,18 +168,24 @@ service RuntimeService {
 
 相關的演進可以參考下圖
 ![](https://i.imgur.com/wjxTNU9.png)
+(圖片擷取自：[kubernetes blog kubernetes-containerd-integration-goes-ga](https://kubernetes.io/blog/2018/05/24/kubernetes-containerd-integration-goes-ga/))
+
 
 
 同時根據該篇文章內關於效能的評比，可以看到目前這個整合的版本不論是 `CPU` 或是 `Memory` 等系統資源的消耗都遠比過往還來得少。
 
 ![](https://i.imgur.com/ZVC8Qoa.png)
+(圖片擷取自：[kubernetes blog kubernetes-containerd-integration-goes-ga](https://kubernetes.io/blog/2018/05/24/kubernetes-containerd-integration-goes-ga/))
+
 ![](https://i.imgur.com/GteIewU.png)
+(圖片擷取自：[kubernetes blog kubernetes-containerd-integration-goes-ga](https://kubernetes.io/blog/2018/05/24/kubernetes-containerd-integration-goes-ga/))
 
 這種架構下，使用者可以在一台伺服器中同時安裝 `kubernetes` 與 `docker`, 同時彼此會共用 `containerd` 來管理自己所需要的 `container`.
 
 架構如下圖，有趣的一點在於這種情況下要如何確保 `docker` 的指令不會看到 `kubernetes` 所要求創建的 `container`, 反之亦然。
 兩者都是透過 `containerd` 來創建 `Container`, 幸好有鑒於 `containerd` 本身提供的 `namespace` 的功能，可以確保不同的客戶端 `docekrd, CRI-plugin` 都可以有自己的 `namespace`，所以用 `docker ps` 就不會互相影響到彼此的運作。
 ![](https://i.imgur.com/IChs25N.png)
+(圖片擷取自：[kubernetes blog kubernetes-containerd-integration-goes-ga](https://kubernetes.io/blog/2018/05/24/kubernetes-containerd-integration-goes-ga/))
 
 不過上述的假設是 `啟用 containerd` 於 `kubernetes cluster` 內才會有這個效果。
 

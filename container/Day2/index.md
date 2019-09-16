@@ -1,7 +1,9 @@
 [Day2] 淺談 Container 實現原理, 以 Docker 為例(I)
 =============================================
 
-2020 It邦幫忙鐵人賽 Kubernetes 原理分析系列文章
+> 本文同步刊登於 [hwchiu.com - 淺談 Container 設計原理(I)](https://www.hwchiu.com/container-design-i.html)
+
+2020 IT邦幫忙鐵人賽 Kubernetes 原理分析系列文章
 
 - [kubernetes 探討](https://ithelp.ithome.com.tw/articles/10215384/)
 - Container & Open Container Initiative
@@ -124,8 +126,9 @@
 ## Image Spec
 接下來來看一下到底所謂的 `Image` 是什麼，我們常用的 `Docker pull/push/build/images` 所產生的 `image` 檔案是怎麼被定義的。
 
-從[官方GitHub](https://github.com/opencontainers/image-spec/blob/master/spec.md) 參考而來的圖片清楚明瞭的說明到底 `Image` 要處理什麼事情
+下圖片清楚明瞭的說明到底 `Image` 要處理什麼事情
 ![](https://i.imgur.com/acGSy8O.png)
+(圖片擷取自：[GitHub opencontainers/image-spec](https://github.com/opencontainers/image-spec/blob/master/spec.md))
 
 一個簡單的 `Java` 應用程式包裝成 `Container` 後，整個 `Image Layer` 處理了下列事情
 1. `Layer`: 相關的檔案系統配置，檔案的位置/內容/權限

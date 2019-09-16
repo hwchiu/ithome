@@ -1,7 +1,9 @@
 [Day3] 淺談 Container 實現原理, 以 Docker 為例(II)
 ==================================================
 
-2020 It邦幫忙鐵人賽 Kubernetes 原理分析系列文章
+> 本文同步刊登於 [hwchiu.com - 淺談 Container 設計原理(II)](https://www.hwchiu.com/container-design-ii.html)
+
+2020 IT邦幫忙鐵人賽 Kubernetes 原理分析系列文章
 
 - [kubernetes 探討](https://ithelp.ithome.com.tw/articles/10215384/)
 - Container & Open Container Initiative
@@ -61,9 +63,10 @@
 # Docker
 對於 `Open Container Initiative (OCI)` 有基本概念之後，接下來就要探討作為 `OCI` 重大貢獻者的 `docker` (libcontainer, image spec...etc)，是如何在其架構中透過何種方式跟來創建基於 `OCI` 介面的 `Container`.
 
-從 [官方文件](https://blog.docker.com/2016/04/docker-engine-1-11-runc/) 中可以看到一張很棒的架構圖，當有了 `OCI` 的概念後再來看這張圖會覺得親切許多。
+下圖是一個滿棒的架構圖，當有了 `OCI` 的概念後再來看這張圖會覺得親切許多。
 
 ![](https://i.imgur.com/WL7hKSD.png)
+(圖片擷取自：[blod.docker.com - docker-engine-1-11-runc](https://blog.docker.com/2016/04/docker-engine-1-11-runc/))
 
 這張圖片的右半部分標出了四個不同層級的概念，分別是
 - Docker UI/Commands
@@ -122,7 +125,9 @@ root      2571  0.6  0.8 558432 35808 ?        Ssl  Sep12   0:39 docker-containe
 
 關於 `re-parenting` 的演變可以直接參閱該份投影片，如下
 ![](https://i.imgur.com/yYRFdUK.png)
+(圖片擷取自：[dockercon-2016](https://github.com/crosbymichael/dockercon-2016/blob/master/Creating%20Containerd.pdf))
 ![](https://i.imgur.com/Nxzr0Tn.png)
+(圖片擷取自：[dockercon-2016](https://github.com/crosbymichael/dockercon-2016/blob/master/Creating%20Containerd.pdf))
 
 
 由上面的概念可以知道，每個 `containerd-shim` 都會對應到一個 `container`, 因此當透過 `docker run` 的方式來運行容器後，系統就會產收一個 `container-shim` 相關的應用程式. 可以使用以下範例創建多個容器，然後觀察相關的 `containerd-shim` 的狀態

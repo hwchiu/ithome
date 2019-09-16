@@ -1,7 +1,9 @@
 [Day1] 淺談 Kubernetes 設計原理
 =============================
 
-2020 It邦幫忙鐵人賽 Kubernetes 原理分析系列文章
+> 本文同步刊登於 [hwchiu.com - 淺談 Kubernetes 設計原理](https://www.hwchiu.com/kubernetes-design.html)
+
+2020 IT邦幫忙鐵人賽 Kubernetes 原理分析系列文章
 
 - [kubernetes 探討](https://ithelp.ithome.com.tw/articles/10215384/)
 - Container & Open Container Initiative

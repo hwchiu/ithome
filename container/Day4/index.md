@@ -1,7 +1,9 @@
 [Day4] 淺談 Container 實現原理, 以 Docker 為例(III)
 ==================================================
 
-2020 It邦幫忙鐵人賽 Kubernetes 原理分析系列文章
+> 本文同步刊登於 [hwchiu.com - 淺談 Container 設計原理(III)](https://www.hwchiu.com/container-design-iii.html)
+
+2020 IT邦幫忙鐵人賽 Kubernetes 原理分析系列文章
 
 - [kubernetes 探討](https://ithelp.ithome.com.tw/articles/10215384/)
 - Container & Open Container Initiative
@@ -17,11 +19,7 @@
 
 前一天的文章中，我們探討了如何透過現有的工具來創造出滿足 `OCI` 標準的 `Container` 並且稍微介紹了一下 `Docker` 內的架構，理解一下 `Docker Client`, `Docker Engine`, `Containerd` 以及 `Containered-shim`
 
-
-相對於前幾天都在觀察 `OCP` 以及 `Docker` 創建容器的過程，今天則是
-會更細部的針對特定功能進行研究，譬如 `Networking` ㄉㄧ
-
-今天會稍微從不同的角度來手把手操作一下 `Docker` 並且會針對 `Networking` 以及 `Storage` 兩個部分進行操作。
+相對於前幾天都在觀察 `OCP` 以及 `Docker` 創建容器的過程，今天則是會更細部的針對底層資源進行研究，譬如 `Networking` 與 `Storage`.
 
 在前述的文章中有提到`Linux` 環境中是透過了 `Namespace` 來提供各式各種不同資源隔離，而其中有兩個之後再 `kubernetes` 中也會頻繁出現的分別是 `Networking` 以及 `Storage`.
 
