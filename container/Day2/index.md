@@ -6,7 +6,7 @@
 2020 IT邦幫忙鐵人賽 Kubernetes 原理分析系列文章
 
 - [kubernetes 探討](https://ithelp.ithome.com.tw/articles/10215384/)
-- Container & Open Container Initiative
+- [Container & Open Container Initiative](https://ithelp.ithome.com.tw/articles/10216215/)
 - Container Runtime Interface
 - Container Network Interface
 - Container Storage Interface
@@ -25,31 +25,31 @@
 2. `Container` 的實作選擇使用 `Docker`.
 
 # Container
-隨者 `Docker` 過去數年的蓬勃發展，就算不曾用過 Docker 也必定聽過所謂的 `容器(Container)`，雖然 `Container` 的概念其實不算新，不論是 `Jail` 或是 `LXC` 都有者相同輕量級虛擬化的作用。
+隨者 `Docker` 過去數年的蓬勃發展，就算不曾用過 Docker 也必定聽過所謂的 `容器(Container)`，雖然 `Container` 的概念其實不算新，不論是 `jail`, `chroot` 或是 `lxc` 都能夠提供輕量虛擬化的效益。
 
-但是真正將其落地並且廣泛被接受的我認為還是歸功於 `Docker`， `Docker` 簡化了整體的複雜性，讓整個使用起來更加簡單，透過 `Image`的方式重複使用各式各樣的環境為整個生態性帶來了廣泛的討論。
+但是真正將其落地並且廣泛被接受的我認為還是歸功於 `Docker`， `Docker` 簡化了整體的複雜性，讓整個使用起來更加簡單，透過 `Image` 的方式重複使用各式各樣的環境為整個生態性帶來了廣泛的討論。
 
-接下來我們就要探討 `Docker` 與  `Container` 這兩者的關係，並且理解一個最簡單的 `docker run` 其背後到底是怎麼運作的。
+早期大家總是 `docker`, `Container` 兩個名詞交替的互相使用，然而到了 2019 的這個階段，這兩個詞所代表的意義是完全不同的。
 
-由於 `Docker`  本身版本的演進，其底層實作的方式也在演進，因此我們這主要是針對 Docker 1.11 之後的架構來介紹。
+`Container` 作為一個概念，本身背後則有一個相關的標準在支持與制定，而 `docker` 作為一個 `Container` 的解決方案。因此再探討各式各樣的議題的時候，我認為需要仔細地確認自己想要表達的含義到底是 `Container` 還是 `docker`。
+的。
 
 # Open Container Initiative (OCI)
-`Container` 與 `Docker` 的關係要特別注意，`Container` 是所謂的概念與目標，而 `Docker` 則是一種實現方式，除了 `Docker` 之外， `CRI-O`, `RKT`  都是其他的選擇。
 
-
-就如同軟體開發一樣，為了滿足各式各樣的實現，則該介面必定有所謂的標準，而各種實現必須符合該介面才算是一種可用的實作。
+前述提到 `Container` 本身是種概念，背後有標準規範其相關設定與運作，透過標準的制定能夠讓各個 `Contaienr` 相關的解決方案能夠有更高的相容性，就譬如我們可以很輕鬆的再 `Kubernetes` 的環境內替換各種不同的 `Container` 實作(此內容會到第五篇 CRI 詳細介紹)
 
 在 `Container` 的世界中，該介面就是所謂的 `Open Container Iinitiative (OCI)`
 - 隸屬於 Linux Foundation 專案底下
-- 2015/01/22 專案啟動`
+- 2015/01/22 專案啟動
 - 目標希望能夠提供基於作業系統層級的虛擬化介面
 - 主要定義兩大標準
     - Runtime Specification (運行標準)
     - Image Specification (容器映像檔案標準)
 
-熟悉 `Docker` 的人應該對於 `docker images` 相關指令不陌生，不論是使用各式各樣包好的套件，甚至是自己透過 `docker build` 建置自己的環境都會與所謂的 `image` 脫不了關係，而所謂的 `Image Spec` 就是用來規範 `Image` 的格式。
+熟悉 `Docker` 的人應該對於 `docker images` 相關指令不陌生，透過 `docker images/pull/push` 等指令能夠讓所有的使用者與開發者享受與分享各種已經建置好的虛擬化環境，減少重複打造輪子的困境與時間，帶來的好處可是說也說不完。
+此外使用者也可以透過 `docker build` 建置自己的環境來使用，這一切的操作都與所謂的 `image` 脫不了關係，如果有仔細看過 `docker images`, `docker pull` 的內容應該會觀察到一層又一層的 `layer`， 而所謂的 `Image Spec` 就是用來規範 `Image` 的格式。
 
-而 `Runtime Spec` 則是規範如何控制所謂的 `Container`, 包含了 `Create/Delete/Execute..etc` 等各種操作，此外如何產生 `Container` 所需要的資訊也都在標準內有所設定。
+而 `Runtime Spec` 則是規範如何控制所謂的 `Container`, 包含了 `Container` 生命週期的操作，如 `create/delete/start/stop` 或者是運行時期的互動，如 `attach/exec` 等，這些需要的資訊與參數都在 `Runtime Spec` 裡面去制定。
 
 `Docker` 底層用到的相關元件都有滿足 `OCI` 的需求，所以如果今天有其他的解決方案也都遵循 `OCI` 的標準來設計，則理論上他們之間的容器映像檔案 `Container Image` 要可以交替使用而不影響功能。
 

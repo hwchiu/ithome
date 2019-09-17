@@ -6,7 +6,7 @@
 2020 IT邦幫忙鐵人賽 Kubernetes 原理分析系列文章
 
 - [kubernetes 探討](https://ithelp.ithome.com.tw/articles/10215384/)
-- Container & Open Container Initiative
+- [Container & Open Container Initiative](https://ithelp.ithome.com.tw/articles/10216215/)
 - Container Runtime Interface
 - Container Network Interface
 - Container Storage Interface
