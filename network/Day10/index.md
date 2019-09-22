@@ -1,7 +1,7 @@
 [Day10] Container Network Interface 介紹
 =======================================
 
-> 本文同步刊登於 [hwchiu.com - Container Network Interface](https://www.hwchiu.com/kubernetes-cni.html)
+> 本文同步刊登於 [hwchiu.com - Container Network Interface](https://www.hwchiu.com/cni.html)
 
 2020 IT邦幫忙鐵人賽 Kubernetes 原理分析系列文章
 

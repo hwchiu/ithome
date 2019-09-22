@@ -1,7 +1,7 @@
 [Day11] Kubernetes - Container Network Interface (CNI)
 ======================================================
 
-> 本文同步刊登於 [hwchiu.com - Container Network Interface](https://www.hwchiu.com/kubernetes-cni.html)
+> 本文同步刊登於 [hwchiu.com - Kubernetes & Container Network Interface](https://www.hwchiu.com/kubernetes-cni.html)
 
 2020 IT邦幫忙鐵人賽 Kubernetes 原理分析系列文章
 

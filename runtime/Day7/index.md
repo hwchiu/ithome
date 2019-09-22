@@ -1,7 +1,7 @@
 [Day7] Container Runtime - CRI-O
 =====================================================
 
-> 本文同步刊登於 [hwchiu.com - Container Runtime - CRI-O](https://www.hwchiu.com/container-runtime-crio.html)
+> 本文同步刊登於 [hwchiu.com - Container Runtime - CRI-O](https://www.hwchiu.com/kubernetes-runtime-crio.html)
 
 2020 IT邦幫忙鐵人賽 Kubernetes 原理分析系列文章
 
