@@ -135,7 +135,7 @@ kata-containers/runtime - Hypervisor-based OCI runtime combining technology from
 `gVisor` 最底層的 `OCI Runtime` 叫做 `runsc`，而其達到安全性隔離的手段則是透過所謂的 `user-space kernel` 的手段，接下來將透過介紹到底 `gVisor` 是怎麼
 實現高安全性的 `Container`。
 
-如果說 `SECCOMP` 是透過限制的方式禁止應用程式存取特別的 `systel call`, 那 `gVisor` 就是極端的把所有的 `system call` 完全都修改掉，讓你看起來有使用 `system call`，但是其實你使用的 `system call` 根本不是跟真正的 `host kernel` 溝通，而是跟 `gVisor` 所重新打造的 `user-space kernel` 溝通。
+如果說 `SECCOMP` 是透過限制的方式禁止應用程式存取特別的 `system call`, 那 `gVisor` 就是極端的把所有的 `system call` 完全都修改掉，讓你看起來有使用 `system call`，但是其實你使用的 `system call` 根本不是跟真正的 `host kernel` 溝通，而是跟 `gVisor` 所重新打造的 `user-space kernel` 溝通。
 
 這也是為什麼其稱為 `user-space kernel`, 在 `user-space` 重新打造一個仿 `kernel` 的環境，架構如下。
 

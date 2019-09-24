@@ -56,7 +56,7 @@
 接下來細看一下所謂的 `Runtime Spec` 以及 `Image Spec` 到底規範了什麼資訊與設定。
 
 ## Runtime Spec
-`Runetime Spec` 的文件可以在  [Github](https://github.com/opencontainers/runtime-spec/blob/master/spec.md) 上參閱， `Runtime Spec` 規範的範疇有三，分別是
+`Runtime Spec` 的文件可以在  [Github](https://github.com/opencontainers/runtime-spec/blob/master/spec.md) 上參閱， `Runtime Spec` 規範的範疇有三，分別是
 1. 設定檔案格式
     - 該內容基本上會根據不同平台而有不同的規範，同時也明確表示創建該平台上 `container` 所需要的一切參數。
 3. 執行環境一致
