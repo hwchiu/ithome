@@ -1,7 +1,7 @@
 [Day16] CNI - Flannel 封包傳輸原理 - VXLAN分析
 ===========================================
 
-> 本文同步刊登於 [hwchiu.com - CNI - Flannel - 安裝設定篇](https://www.hwchiu.com/cni-flannel-i.html)
+> 本文同步刊登於 [hwchiu.com - CNI - Flannel - VXLAN分析](https://www.hwchiu.com/cni-flannel-ii.html)
 
 2020 IT邦幫忙鐵人賽 Kubernetes 原理分析系列文章
 
