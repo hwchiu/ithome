@@ -1,5 +1,5 @@
-這個專案用來寄放 2019 ITHOME 鐵人 30 的文章原始檔案
-===================================================
+2019 ITHOME 鐵人 30 的文章原始檔案
+==================================
 
 主要針對 **kubernetes** 的部分去探討，並且同步發佈於個人部落格。
 
@@ -57,7 +57,7 @@
 # Extension
 [Device Plugin Introduction](https://www.hwchiu.com/k8s-device-plugin.html)
 
-[Not-Yet Device Plugin - Kubernetes]()
+[Device Plugin - Kubernetes](https://www.hwchiu.com/k8s-device-plugin-implement.html)
 
 [Not-Yet Device Plugin DPDK]()
 
