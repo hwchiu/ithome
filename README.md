@@ -55,7 +55,7 @@
 
 
 # Extension
-[Not-Yet Device Plugin Introduction]()
+[Device Plugin Introduction](https://www.hwchiu.com/k8s-device-plugin.html)
 
 [Not-Yet Device Plugin - Kubernetes]()
 
