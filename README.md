@@ -59,11 +59,14 @@
 
 [Device Plugin - Kubernetes](https://www.hwchiu.com/k8s-device-plugin-implement.html)
 
-[Not-Yet Device Plugin DPDK]()
+[Device Plugin RDMA](https://www.hwchiu.com/k8s-device-plugin-rdma.html)
 
-[Not-Yet Device Plugin SR-IOV]()
+[Device Plugin SR-IOV](https://www.hwchiu.com/k8s-device-plugin-sriov.html)
 
-[Not-Yet Operator Pattern]()
+[Operator Pattern](https://www.hwchiu.com/k8s-operator-pattern.html)
 
-[Not-Yet Service Catalog]()
+[Service Catalog](https://www.hwchiu.com/k8s-service-catalog.html)
 
+# Security
+
+[Container Security](https://www.hwchiu.com/k8s-security.html)

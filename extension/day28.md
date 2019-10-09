@@ -1,7 +1,7 @@
 [Day28] Service Catalog
 =======================
 
-> 本文同步刊登於 [hwchiu.com - Device Plugin(RDMA)](https://www.hwchiu.com/k8s-device-plugin-rdma.html)
+> 本文同步刊登於 [hwchiu.com - Service Catalog](https://www.hwchiu.com/k8s-service-catalog.html)
 
 2020 IT邦幫忙鐵人賽 Kubernetes 原理分析系列文章
 
