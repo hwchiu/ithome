@@ -1,0 +1,24 @@
+{
+  "name": "ithome-ironman",
+  "version": "1.0.0",
+  "description": "ITHOME 鐵人 30 的文章原始檔案 ==================================",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/hwchiu/ithome-ironman.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/hwchiu/ithome-ironman/issues"
+  },
+  "homepage": "https://github.com/hwchiu/ithome-ironman#readme",
+  "dependencies": {
+    "gulp": "^4.0.2",
+    "gulp-gh-pages": "^0.5.4",
+    "gulp-load-plugins": "^2.0.4"
+  }
+}
