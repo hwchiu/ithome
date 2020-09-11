@@ -10,5 +10,5 @@ ITHOME 鐵人 30 的文章原始檔案
 - [線上活動 - Meetups](https://www.meetup.com/CloudNative-Taiwan/events)
 - [投影片 - Slideshare](https://www.slideshare.net/hongweiqiu/presentations)
 - [筆者線上課程](https://www.hwchiu.com/k8s-course-2.html)
-
+- [Cloud Native Taiwan User Group](https://www.facebook.com/groups/cloudnative.tw)
 
