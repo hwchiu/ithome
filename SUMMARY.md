@@ -55,7 +55,7 @@
         * [Pipeline System 介紹](2020/ci/day9.md)
         * [CI 與 Kubernetes 的整合](2020/ci/day10.md)
         * [Kubernetrs 應用測試](2020/ci/day11.md)
-        * [CI Pipeline x Kubernetes 測試方案](2020/ci/day12md)
+        * [CI Pipeline x Kubernetes 結論](2020/ci/day12md)
     * CD 流水線介紹
         * [CD 與 Kubernetes 的整合](2020/cd/day13.md)
         * [CD Pipeline 參考設計](2020/cd/day14.md)
