@@ -57,15 +57,15 @@
         * [Kubernetrs 應用測試](2020/ci/day11.md)
         * [CI Pipeline x Kubernetes 結論](2020/ci/day12md)
     * CD 流水線介紹
-        * [CD 與 Kubernetes 的整合](2020/cd/day13.md)
-        * [CD Pipeline 參考設計](2020/cd/day14.md)
-        * [CD 常見用法與範例, GitHub Action](2020/cd/day15.md)
+        * [CD 系統的選擇議題](2020/cd/day13.md)
+        * [CD 與 Kubernetes 的整合](2020/cd/day14.md)
+        * [CD 之 Pull Mode 介紹: Keel](2020/cd/day15.md)
     * GitOps 的部署概念
         * [GitOps 的介紹](2020/gitops/day16.md)
         * [GitOps 與 Kubernetes 的整合](2020/gitops/day17.md)
         * [GitOps - ArgoCD 介紹](2020/gitops/day18.md)
     * Private Registry
-        * [Container Registry 的介紹](2020/registry/day19.md)
+        * [Container Registry 的介紹及需求](2020/registry/day19.md)
         * [自架 Registry 的方案介紹](2020/registry/day20.md)
         * [自架 Registry - Harbor](2020/registry/day21.md)
         * [自架 Registry 與 Kubernetes 的整合](2020/registry/day22.md)
@@ -75,8 +75,8 @@
         * [Secret 使用範例: Vault](2020/secret/day25.md)
     * 番外篇
         * [kubectl plugin 介紹](2020/plugin/day26.md)
-        * [Kubernetes 第三方好用工具介紹- 1](2020/plugin/day27.md)
-        * [Kubernetes 第三方好用工具介紹- 2](2020/plugin/day28.md)
+        * [Kubernetes plugin 範例](2020/plugin/day27.md)
+        * [Kubernetes 第三方好用工具介紹](2020/plugin/day28.md)
     * [Summary](2020/summary/day29.md)
     * [各類資源分享](2020/summary/day30.md)
 
