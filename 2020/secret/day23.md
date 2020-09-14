@@ -88,8 +88,6 @@ steps:
 
 ### Helm
 
-接下來我們將 `Helm` 的使用情境以及這個 `pipeline system` 的解決方法合併再一起，看會怎麼做
-
 1. CI/CD pipeline 運行到後面階段後，從系統中取出資料庫的帳號密碼，假設這個變數叫做 `$password`
 2. 接下來要透過 `helm` 的方式來安裝我們的應用程式，因此會執行 `helm upgrade --install --set dbpassword=$password .` 等類似這樣的指令產生出最後的 secret 以及 pod，然後一起部署到 Kubernetes 裡面
 
@@ -111,6 +109,7 @@ steps:
 2. 呈上，當你要使用一個 pipeline 系統對應多個環境，譬如 dev/QA/staging/production 等多環境，你上述的變數量就會直接翻倍，然後那邊的數量就愈來愈多
 3. 上述 `helm upgrade --install ...` 的部分一定是於 shell 去執行，這時候如果有些應用程式需要的機密資料本身就有雙引號，單引號等討人厭字元，就要特別注意跳脫的問題。我過往還遇過某些機密資訊本身是由一個 JSON 檔案組成的，裡面可說是雙引號滿天下，這時候的處理就變得非常頭疼
 4. 今天這個作法是將機密資訊於 pipeline 系統來處理，但是如果採用的 GitOps 的做法，那就不會有 CD pipeline，因此這種解法也不可行。
+5. 如果今天因為一些需求，需要替換整個 pipeline 系統，那管理人員會覺得很崩潰，因為整個系統要大搬移。
 
 
 
