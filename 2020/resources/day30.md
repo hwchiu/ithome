@@ -33,7 +33,9 @@ Blog: https://www.hwchiu.com/
 
 線上演講影片: https://www.youtube.com/channel/UCoYY8K9fbfDtTY7m68UCATA/videos
 
-個人粉絲頁: https://www.facebook.com/technologynoteniu
+個人技術推廣頁面: https://www.facebook.com/technologynoteniu
+
+Telegram 技術推播頻道: https://t.me/technologynote
 
 去年 ITHOME 參賽文章: https://www.hwchiu.com/tags/ITHOME/page/3/
 
