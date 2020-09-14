@@ -70,9 +70,9 @@
         * [自架 Registry - Harbor](2020/registry/day21.md)
         * [自架 Registry 與 Kubernetes 的整合](2020/registry/day22.md)
     * Secret 的議題
-        * [Secret 的部署問題](2020/secret/day23.md)
-        * [Secret 的解決方案](2020/secret/day24.md)
-        * [Secret 使用範例: Vault](2020/secret/day25.md)
+        * [Secret 的部署問題與參考解法(上)](2020/secret/day23.md)
+        * [Secret 的部署問題與參考解法(下)](2020/secret/day24.md)
+        * [Secret 使用範例: sealed-secrets](2020/secret/day25.md)
     * 番外篇
         * [kubectl plugin 介紹](2020/plugin/day26.md)
         * [Kubernetes plugin 範例](2020/plugin/day27.md)
