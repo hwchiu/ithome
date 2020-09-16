@@ -1,9 +1,9 @@
 Day 9 - Pipeline System 介紹 
 ===============================
 
-本文同步刊登於筆者[部落格](https://hwchiu.com)
-有興趣學習更多 Kubernetes/DevOps/Linux 相關的資源的讀者
-歡迎追蹤 [矽谷牛的耕田筆記](https://www.facebook.com/technologynoteniu)
+本文將於賽後同步刊登於筆者[部落格](https://hwchiu.com/)
+有興趣學習更多 Kubernetes/DevOps/Linux 相關的資源的讀者，歡迎前往閱讀
+更多相關科技的技術分享，歡迎追蹤 [矽谷牛的耕田筆記](https://www.facebook.com/technologynoteniu)
 
 
 
