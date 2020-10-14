@@ -40,4 +40,43 @@
 
 
 
-* 2021 鐵人賽
+* 2020 鐵人賽
+    * [DevOps 與 Kubernetes 的愛恨情仇](2020/overview/day1.md)
+    * Kubernetes 物件管理與部署
+        * [Kubernetes 物件管理簡介](2020/application/day2.md)
+        * [Helm 的介紹](2020/application/day3.md)
+        * [Helm 的使用範例](2020/application/day4.md)
+    * Kubernetes 本地開發之道
+        * [淺談本地部署 Kubernetes 的各類選擇](2020/local/day5.md)
+        * [K3D與KIND 的部署示範](2020/local/day6.md)
+        * [本地開發 Kubernetes 應用程式](2020/local/day7.md)
+        * [Skaffold  本地開發與測試](2020/local/day8.md)
+    * CI 流水線介紹
+        * [Pipeline System 介紹](2020/ci/day9.md)
+        * [CI 與 Kubernetes 的整合](2020/ci/day10.md)
+        * [Kubernetrs 應用測試](2020/ci/day11.md)
+        * [CI Pipeline x Kubernetes 結論](2020/ci/day12md)
+    * CD 流水線介紹
+        * [CD 系統的選擇議題](2020/cd/day13.md)
+        * [CD 與 Kubernetes 的整合](2020/cd/day14.md)
+        * [CD 之 Pull Mode 介紹: Keel](2020/cd/day15.md)
+    * GitOps 的部署概念
+        * [GitOps 的介紹](2020/gitops/day16.md)
+        * [GitOps 與 Kubernetes 的整合](2020/gitops/day17.md)
+        * [GitOps - ArgoCD 介紹](2020/gitops/day18.md)
+    * Private Registry
+        * [Container Registry 的介紹及需求](2020/registry/day19.md)
+        * [自架 Registry 的方案介紹](2020/registry/day20.md)
+        * [自架 Registry - Harbor](2020/registry/day21.md)
+        * [自架 Registry 與 Kubernetes 的整合](2020/registry/day22.md)
+    * Secret 的議題
+        * [Secret 的部署問題與參考解法(上)](2020/secret/day23.md)
+        * [Secret 的部署問題與參考解法(下)](2020/secret/day24.md)
+        * [Secret 使用範例: sealed-secrets](2020/secret/day25.md)
+    * 番外篇
+        * [kubectl plugin 介紹](2020/plugin/day26.md)
+        * [Kubernetes plugin 範例](2020/plugin/day27.md)
+        * [Kubernetes 第三方好用工具介紹](2020/plugin/day28.md)
+    * [Summary](2020/summary/day29.md)
+    * [各類資源分享](2020/summary/day30.md)
+
