@@ -118,7 +118,7 @@ K9s 官網介紹
 
 # Ksniff
 
-接下來要介紹的是一個抓取網路封包的工具，過往我們分析封包的時候都會使用 tcpdupm 或是 wireshark 這些工具來輔助，而 Ksniff 就是一個將這些工具整合到 Kubernetes 系統內的工具
+接下來要介紹的是一個抓取網路封包的工具，過往我們分析封包的時候都會使用 tcpdump 或是 wireshark 這些工具來輔助，而 Ksniff 就是一個將這些工具整合到 Kubernetes 系統內的工具
 
 Ksniff 的介紹如下
 
