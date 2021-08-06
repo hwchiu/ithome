@@ -80,3 +80,5 @@
     * [Summary](2020/summary/day29.md)
     * [各類資源分享](2020/summary/day30.md)
 
+* 2021 鐵人賽
+    * [淺談 Kubernetes 的架設與管理](2021/day1.md)
