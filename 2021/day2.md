@@ -7,6 +7,8 @@ Day 2 - 何謂 Rancher
 
 更多相關科技的技術分享，歡迎追蹤 [矽谷牛的耕田筆記](https://www.facebook.com/technologynoteniu)
 
+對於 Kubernetes 與 Linux Network 有興趣的可以參閱筆者的[線上課程](https://course.hwchiu.com/)
+
 # Rancher
 
 Rancher 是一個由 Rancher Labs 的公司所維護的 Kubernetes 相關開源專案，Rancher Lab 於 2020 年底被 Suse 據傳已 600萬 ~ 700萬美金左右收購，因此如果目前搜尋

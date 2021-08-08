@@ -7,6 +7,8 @@ Day 1 - 淺談 Kubernetes 的架設與管理
 
 更多相關科技的技術分享，歡迎追蹤 [矽谷牛的耕田筆記](https://www.facebook.com/technologynoteniu)
 
+對於 Kubernetes 與 Linux Network 有興趣的可以參閱筆者的[線上課程](https://course.hwchiu.com/)
+
 
 # Kubernetes
 近年來 Kubernetes 的聲勢水漲船高，愈來愈多的產業與團隊都在思考是否要引入 Kubernetes 來取代舊有的部署平台。

@@ -7,6 +7,9 @@ Day 3 - Rancher 架構與安裝方式介紹
 
 更多相關科技的技術分享，歡迎追蹤 [矽谷牛的耕田筆記](https://www.facebook.com/technologynoteniu)
 
+對於 Kubernetes 與 Linux Network 有興趣的可以參閱筆者的[線上課程](https://course.hwchiu.com/)
+
+# 前言
 前篇文章探討了 Rancher 的基本概念與 Rancher 帶來的好處，本章節則要探討 Rancher 的架構
 對其架構瞭解愈深，未來使用時要除錯就會更知道要從什麼角度去偵錯同時部署時也比較會有些基本概念為什麼官方會有不同的部署方式。
 
@@ -57,4 +60,4 @@ Quick Start Reference Deployment](https://aws-quickstart.github.io/quickstart-ek
 最後要注意的是，不論是哪種安裝方式，都需要針對 SSL 憑證去進行處理，這部分可以用 Rancher 自行簽署，自行準備或是透過 Let's Encrypt 來取得都可以，所以安裝時也需要對 SSL 有點概念會比較好，能的話最好有一個屬於自已的域名來方便測試。
 單一節點的 Docker Container 部署方式有可能會遇到 RKE 內部 k8s 服務憑證過期的問題，如果遇到可以參閱下列解決方式處理 [Rancher container restarting every 12 seconds, expired certificates](https://github.com/rancher/rancher/issues/26984#issuecomment-712233261)
 
-下一篇文章便會嘗試透過 RancherD 的方式來看看如何架設 Rancher
+下一篇文章便會嘗試透過 RKE + Helm 的方式來看看如何架設 Rancher
