@@ -87,3 +87,5 @@
         * [Rancher 架構與安裝方式介紹](2021/day3.md)
         * [透過 RKE 架設第一套 Rancher(上)](2021/day4.md)
         * [透過 RKE 架設第一套 Rancher(下)](2021/day5.md)
+    * Rancher 系統管理指南
+        * [系統管理指南 - 使用者登入管理](2021/day6.md)
