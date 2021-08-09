@@ -86,3 +86,4 @@
         * [何謂 Rancher](2021/day2.md)
         * [Rancher 架構與安裝方式介紹](2021/day3.md)
         * [透過 RKE 架設第一套 Rancher(上)](2021/day4.md)
+        * [透過 RKE 架設第一套 Rancher(下)](2021/day5.md)

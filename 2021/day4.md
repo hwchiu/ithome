@@ -154,7 +154,7 @@ services:
       interval_hours: 6
       retention: 60
 network:
-  plugin: calico
+  plugin: flannel
 ```
 
 
@@ -194,9 +194,10 @@ INFO[0306] Finished building Kubernetes cluster successfully
 RKE已經正式創建完畢，當前目錄下會產生一個 KUBECONFIG 的目錄，檔案名稱為 "kube_config_cluster.yaml"
 
 ```bash=
-azureuser@rke-management:~$ sudo cp kube_config_cluster.yaml ~/.kube/config
+azureuser@rke-management:~$ mkdir .kube
+azureuser@rke-management:~$ install -m400 kube_config_cluster.yaml ~/.kube/config
 azureuser@rke-management:~$ kubectl get nodes
-azureuser@rke-management:~$ sudo chmod 644 .kube/config
+azureuser@rke-management:~$ sudo chmod 400 .kube/config
 azureuser@rke-management:~$ kubectl get nodes
 NAME        STATUS   ROLES                      AGE   VERSION
 10.0.0.10   Ready    controlplane,etcd,worker   10m   v1.20.9
