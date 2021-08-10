@@ -89,3 +89,4 @@
         * [透過 RKE 架設第一套 Rancher(下)](2021/day5.md)
     * Rancher 系統管理指南
         * [系統管理指南 - 使用者登入管理](2021/day6.md)
+        * [系統管理指南 - RKE Template](2021/day7.md)
