@@ -91,7 +91,9 @@
         * [系統管理指南 - 使用者登入管理](2021/day6.md)
         * [系統管理指南 - RKE Template](2021/day7.md)
     * Rancher 叢集管理指南
-        * [叢集管理指南 - 架設 K8s(上)](2021/day8.md)
-        * [叢集管理指南 - 架設 K8s(下)](2021/day9.md)
-        * [叢集管理指南 - RKE 管理與操作](2021/day10.md)
-        * [叢集管理指南 - Monitoring 介紹](2021/day11.md)
+        * [架設 K8s(上)](2021/day8.md)
+        * [架設 K8s(下)](2021/day9.md)
+        * [RKE 管理與操作](2021/day10.md)
+        * [Monitoring 介紹](2021/day11.md)
+    * Rancher 專案管理指南
+        * [Project 基本概念介紹](2021/day12.md)
