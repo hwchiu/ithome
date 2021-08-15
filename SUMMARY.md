@@ -97,3 +97,4 @@
         * [Monitoring 介紹](2021/day11.md)
     * Rancher 專案管理指南
         * [Project 基本概念介紹](2021/day12.md)
+        * [Resource Quota 介紹](2021/day13.md)
