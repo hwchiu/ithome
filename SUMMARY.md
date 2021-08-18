@@ -100,3 +100,4 @@
         * [Resource Quota 介紹](2021/day13.md)
     * Rancher 雜談
         * [其他事項](2021/day14.md)
+        * [Rancher & Infrastructure as Code][2021/day15.md]
