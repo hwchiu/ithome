@@ -101,3 +101,5 @@
     * Rancher 雜談
         * [其他事項](2021/day14.md)
         * [Rancher & Infrastructure as Code][2021/day15.md]
+    * Rancher 應用程式部署
+        * [淺談 Rancher 的應用程式管理][2021/day16.md]
