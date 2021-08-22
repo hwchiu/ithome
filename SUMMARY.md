@@ -105,3 +105,5 @@
         * [淺談 Rancher 的應用程式管理][2021/day16.md]
         * [Rancher Catalog 介紹(v2.0~v2.4)][2021/day17.md]
         * [Rancher App & Marketplace 介紹(v2.5)][2021/day18.md]
+    * GitOps 部署
+        * [淺談 GitOps ][2021/day19.md]
