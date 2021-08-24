@@ -107,3 +107,4 @@
         * [Rancher App & Marketplace 介紹(v2.5)][2021/day18.md]
     * GitOps 部署
         * [淺談 GitOps ][2021/day19.md]
+        * [GitOps 解決方案比較][2021/day20.md]
