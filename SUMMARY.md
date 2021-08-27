@@ -110,3 +110,4 @@
         * [GitOps 解決方案比較][2021/day20.md]
         * [Rancher Fleet 介紹][2021/day21.md]
         * [Fleet 環境架設與介紹][2021/day22.md]
+        * [Fleet 玩轉第一個 GitOps][2021/day23.md]
