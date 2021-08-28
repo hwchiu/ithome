@@ -111,3 +111,4 @@
         * [Rancher Fleet 介紹][2021/day21.md]
         * [Fleet 環境架設與介紹][2021/day22.md]
         * [Fleet 玩轉第一個 GitOps][2021/day23.md]
+        * [Fleet.yaml 檔案探討][2021/day24.md]
