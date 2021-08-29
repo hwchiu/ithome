@@ -1,5 +1,6 @@
-Day 17 - Rancher Catalog(v2.0~v2.4) 介紹
-=======================================
+Day 17 - 應用程式部署 - 淺談 Rancher 的應用程式管理
+==============================================
+
 
 本文將於賽後同步刊登於筆者[部落格](https://hwchiu.com/)
 
@@ -9,159 +10,73 @@ Day 17 - Rancher Catalog(v2.0~v2.4) 介紹
 
 對於 Kubernetes 與 Linux Network 有興趣的可以參閱筆者的[線上課程](https://course.hwchiu.com/)
 
-# Rancher Application
+# 概念探討
+Rancher 作為一個 Kubernetes 管理平台，提供不同的方式將 Kubernetes 叢集給匯入到 Rancher 管理平台中，不論是已經創立的 Kubernetes 或是先透過 Rancher 創造 RKE 接者匯入到 Rancher 中。
 
-Rancher v2.5 是一個非常重要的里程碑，有很多功能於這個版本進入了 v2 下一個里程碑，本章節要探討的應用程式部署實際上也有這個轉變。
+但是 Kubernetes 終究只是一個容器管理平台，前述介紹的各種機制或是 Rancher 整合的功能都是輔助 Kubernetes 的維護，對於團隊最重要的還是產品本身，產品可能是由數個應用程式所組合而成，而每個應用程式可能對應到 Kubernetes 內又是多種不同的物件，譬如 Deployment, Service, StorageClass 等。
+接下來會使用應用程式這個詞來代表多個 Kubernetes 內的資源集合。
 
-Rancher Catalog 是 Rancher v2.0 ~ v2.4 版本最主要的部署方式，而 v2.5 則改成 Cluster Explorer 內的 App&Marketplace 的方式。
-也可以將這個差異說成由 Cluster Manager 轉換成 Cluster Explorer。
+過往探討到部署應用程式到 Kubernetes 叢集內基本上會分成兩個方向來探討
+1. 如何定義與管理應用程式供團隊使用
+2. 部署應用程式給到 Kubernetes 叢集的流程
 
-那為什麼這個已經要被廢除的功能還需要來介紹？
-主要是我自己針對 v2.5 的使用經驗來看，我認為部署應用程式用 Cluster Manager 看起來還是比較簡潔有力，相反的 Cluster Explorer 內的機制沒有好到會讓人覺得替換過去有加分效果。
+# 定義與管理應用程式
 
-所以接下來就針對這兩個機制分享一下使用方式。
+Kubernetes 的物件基本上可以透過兩種格式來表達，分別是 JSON 與 YAML，不過目前主流還是以 YAML 為主。
+這意味這一個最簡單管理應用程式的方式就是使用一堆 YAML 檔案，檔案內則是各種 Kubernetes 的物件。
+
+這些應用程式本身還需要考慮到下列使用情境
+1. 該應用程式會不會需要跨團隊使用
+2. 該應用程式是否需要針對不同環境有不同的參數
+3. 該應用程式本身有沒有其他相依性，譬如部署 A 應用程式會需要先部署 B 應用程式
+4. ...等
+
+上述的這些使用情境是真實存在的，而為了解決這些問題，大部分情況下都不會使用純 YAML 檔案來管理應用程式，譬如想要讓一個 Service 針對不同環境有不同設定就不太好處理，除了準備多個幾乎一樣的檔案外幾乎沒有辦法。
+目前主流的管理方式有 Helm, Kustomize，其餘的還有 ksonnet 等。
+不同解決方案都採用不同的形式來管理與部署應用程式，舉例來說
+使用 Helm 的使用者可以採用下列不同方式來安裝應用程式
+1. helm install
+2. helm template | kubectl apply -
+
+而使用 kustomize 的使用者則可以使用
+1. kustomize ...
+2. kubectl -k ...
+
+因為 kubectl 目前已經內建 kustomize 的功能，所以直接使用 kustomize 指定或是 kubectl 都可以。
+當團隊選擇好如何管理與部署這些應用程式後，下一個問題就是如何部署這些 Helm/Kustomize 物件到 Kubernetes 叢集。
+
+# 部署流程
+基本上所有的部署都以自動化為目標去探討，當然這並不代表手動部署就沒有其價值，畢竟在自動化部署有足夠的信心前，團隊也必定會經歷過各式各樣的手動部署，甚至很多自動化的撰寫與開發也是都仰賴手動部署的經驗。
+
+從 Rancher 的角度來看，自動化部署有三種不同的方式
+1. Kubeconfig
+2. Rancher Catalog
+3. Rancher Fleet
+
+下面稍微探討一下這三者的概念與差異。
+
+# Kubeconfig
+一個操作 Kubernetes 最簡單的概念就是直接使用 kubectl/helm 等指令進行控制，而 Rancher 也有針對每個帳戶提供可存取 Kubernetes 叢集所要使用的 KUBECONFIG。
+
+假設團隊已經完成 CI/CD 的相關流程，就可以於該流程中透過該 KUBECONFIG 來得到存取該 Kubernetes 的權限，接者使用 Helm/Kubectl 等功能來部署應用程式到叢集中。
+
+基本上使用這種方式沒有什麼大問題，畢竟 RKE 也是一個 Kubernetes 叢集，所以如果團隊已經有現存的解決方案是透過這種類型部署的話，繼續使用這種方式沒有任何問題。
 
 # Rancher Catalog
 
-Rancher Catalog 的核心概念分成兩個
+Rancher 本身有一個名為 catalog 的機制用來管理要部署到 Rancher 內的應用程式，這些應用程式必須要基於 Helm 來管理。
 
-1. 如何取得 Kubernetes 應用程式，這部分的資訊狀態就稱為 Catalog
-2. 將 Catalog 中描述的應用程式給實體化安裝到 Kubernetes 中
+其底層背後也是將 Helm 與 Helm values 轉換為 YAML 檔案然後送到 Kubernetes 中。
+這種作法跟第一種最大的差異就是，所有的安裝與管理中間都多了一層 Rancher Catalog 的管理。
 
-Catalog 的核心精神就是要去哪邊取得 Kubernetes 應用程式，Catalog 支援兩種格式
-1. Git 專案，底層概念就是能夠透過 git clone 執行的專案都可以
-2. Helm Server，說到底 Helm Server 就是一個 HTTP Server，這部分可以自行實作或是使用 chartmuseum 等專案來實作。
+CI/CD 流程要存取時就不是針對 Kubernetes 叢集去使用，也不需要取得 KUBECONFIG。
+相反的需要取得 Rancher API Token，讓你 CI/CD 內的腳本有能力去呼叫 Rancher，要求 Rancher 去幫忙創建，管理，刪除不同的 Catalog。
 
-由於 Helm 本身還有版本差別， Helm v2 或是 Helm v3，因此使用上需要標注到底使用哪版本。
+這種方式只限定於 Rancher 管理的叢集，所以如果團隊中不是每個叢集都用 Rancher 管理，那這種方式就不推薦使用，否則只會讓系統混亂。
 
-Catalog 也支援 Private Server，不過這邊只支援使用帳號密碼的方式去存取。使用權限方面 Catalog 也分成全 Rancher 系統或是每個 Kubernetes 叢集獨立設定。
+# Rancher Fleet
+Rancher Fleet 是 Rancher v2.5 正式推出的功能，其替代了過往的 Rancher pipeline(前述文章沒有探討，因為基本上要被淘汰了)的部署方式。
 
-首先如下圖，切換到 Global 這個範圍，接者可以於 Tools 中找到 Catalog 這個選項。
+Fleet 是一個基於 GitOps 策略的大規模 Kubernetes 應用部署解決方案，基於 Rancher 的架構使得 Fleet 可以很輕鬆的存取所有 Rancher 控管的 Kubernetes 叢集，同時 GitOps 的方式讓開發者可以簡單的一口氣將應用程式更新到多個 Kubernetes 叢集。
 
-![](https://i.imgur.com/Sa3pydP.png)
-
-或是如下圖，切換到 ithome-dev 這個叢集中，也可以看到 Tools 中有 Catalog 的範圍。
-
-![](https://i.imgur.com/OkbmzuM.png)
-
-這邊我們使用 Kubernetes Dashboard 這個專案作為一個示範，該專案的 Helm Chart 可以經由 https://kubernetes.github.io/dashboard 這個 Helm Server 去存取。
-
-這類型的伺服器預設都沒有 index.html，所以存取會得到 404 是正常的，想要存取相關內容可以使用下列方式去存取 https://kubernetes.github.io/dashboard/index.yaml，這也是 helm 指令去抓取相關資源的辦法，可以知道該 Server 上會有多少 Helm Charts 以及對應的版本有哪些。
-
-點選右上方的 Add Catalog 就可以看到如下的設定視窗
-
-![](https://i.imgur.com/4P3BB9d.png)
-
-該畫面中我們填入上述資訊，如果是 Git 專案的位置還可以輸入 branch，但是因為我們是 Helm Server，所以 Branch 的資訊就沒有設定的意義。
-最後順便設定該 Helm Server 是基於 Helm v3 來使用的。
-
-![](https://i.imgur.com/1Bcgq2s.png)
-
-創建完畢後就意味 Rancher 已經可以透過這個 Catalog 去得到遠方當前有哪些 應用程式以及擁有哪些版本，但是這並不代表 Rancher 已經知道。
-一種做法就是等 Rancher 預設的同步機制慢慢等或是直接點選 Refresh 讓 Rancher 直接同步該 Catalog 的資訊。
-
-一種常見的情境就是你的 CI/CD 流程更新了 Helm Chart，推進一個版本，結果 Rancher 還不知道，這時候就可以 refresh 強制更新。
-
-創建 Catalog 完畢後，下一件事情就是要從 Catalog 中找到一個可以用的應用程式，並且選擇該應用程式的版本，如果是 Helm 描述的應用程式還可以透過 values.yaml 的概念去客製化應用程式。
-
-應用程式的安裝是屬於最底層架構的，因此是跟 Project 綁定，從左上方切換到之前創立的 myApplication project，並且切換到到畫面上方的 app 頁面中。
-
-![](https://i.imgur.com/kti8npL.png)
-
-該頁面的右上方有兩個按鈕，其中 Manage Catalog 會切回到該專案專屬的 Catalog 頁面，因此 Catalog 本身實際上有三種權限，(Global, Cluster, Project).
-右邊的 Launch 意味者要創立一個應用程式。
-點進去後會看到如下方的圖
-
-![](https://i.imgur.com/WjgFzob.png)
-
-圖中最上方顯示的就是前述創立的 Catalog，該 Helm Server 中只有一個應用程式名為 kubernetes-dashboard
-
-下面則是一些系統預設的 catalog，譬如 helm3-library，該 helm server 中則有非常多不同的應用程式。
-其中這些預設提供的 helm chart 還會被標上 partner 的字樣。
-
-點選 kubernetes-dashboard 後就會進入到設定該應用程式的畫面。
-
-![](https://i.imgur.com/cDCOpE9.png)
-
-畫面上會先根據 Helm Chart 本身的描述設定去介紹該 Helm Charts 的使用方式
-
-![](https://i.imgur.com/qSfk7na.png)
-
-
-接下來就要針對該應用程式去設定，該設定包含了
-1. 該應用程式安裝的名稱
-2. 該 Helm Chart 要用什麼版本，範例中選擇了 4.5.0
-3. 該服務要安裝到哪個 Kubernetes namespace 中
-4. 最下面稱為 Answer 的概念其實就是 Helm Chart values，這邊可以透過 key/value 的方式一個一個輸入，或是使用 Edit as YAML 直接輸入都可以
-
-預設情況下我們不進行任何調整，然後直接安裝即可。
-
-![](https://i.imgur.com/kIoCMfe.png)
-
-安裝完畢後就可以於外面的 App 頁面看到應用程式的樣子，其包含了
-1. 應用程式的名稱
-2. 當前使用版本，如果有新版則會提示可以更新
-3. 狀態是否正常
-4. 有多少運行的 Pod
-5. 是否有透過 service 需要被外部存取的服務
-
-點選該名稱可以切換到更詳細的列表去看看到底該應用程式包含的 Kubernetes 資源狀態，譬如 Deployment, Service, Configmap 等
-
-![](https://i.imgur.com/jdfBeZb.png)
-
-如果該資源有透過 Service 提供存取的話， Rancher 會自動的幫該物件創建一個 Endpoint，就如同 Grafana/Monitoring 那樣，可以使用 API Server 的轉發來往內部存取。
-譬如途中可以看到有產生一個 Endpoint，該位置就是基於 Rancher 的位置後面補上 cluster/namespace/service 等相關資訊來進行處理。
-
-![](https://i.imgur.com/UCZbXaP.png)
-
-這類型的資訊也會於最外層的 App 介面中直接呈現，所以如果直接點選的話就可以很順利地打該 Kubernetes Dashboard 這個應用程式。
-
-![](https://i.imgur.com/tlpRoeb.png)
-![](https://i.imgur.com/z7yQGtn.png)
-
-最後也可以透過 Kubectl 等工具觀察一下目標 namespace 是否有相關的資源，可以看到有 deployment/service 等資源
-
-![](https://i.imgur.com/j36WdZv.png)
-
-透過 Rancher Catalog 的機制就可以使用 Rancher 的介面來管理與存取這些服務，使用上會稍微簡單一些。既然都可以透過 UI 點選那就有很大的機會可以透過 Terraform 來實現上述的操作。
-
-接下來示範如何透過 Terraform 來完成上述的所有操作，整個操作會分成幾個步驟
-1. 先透過 data 資料取得已經創立的 Project ID
-2. 創立 Catalog
-3. 創立 Namespace
-4. 創立 App
-
-```
-data "rancher2_project" "system" {
-    cluster_id = "c-z8j6q"
-    name = "myApplication"
-}
-resource "rancher2_catalog" "dashboard-global" {
-  name = "dashboard-terraform"
-  url = "https://kubernetes.github.io/dashboard/"
-  version = "helm_v3"
-}
-resource "rancher2_namespace" "dashboard" {
-  name = "dashboard-terraform"
-  project_id = data.rancher2_project.system.id
-}
-resource "rancher2_app" "dashboard" {
-  catalog_name = "dashboard-terraform"
-  name = "dashboard-terraform"
-  project_id = data.rancher2_project.system.id
-  template_name = "kubernetes-dashboard"
-  template_version = "4.5.0"
-  target_namespace = rancher2_namespace.dashboard.id
-  depends_on       = [rancher2_namespace.dashboard, ncher2_catalog.dashboard-global]
-}
-```
-
-上述做的事情基本上跟 UI 是完全一樣，創造一個 Catalog，輸入對應的 URL 並且指名為 Helm v3 的版本。
-然後接者創立 Namespace，因為使用 namespace，所以要先利用前述的 data 取得目標 project 的 ID，這樣就可以把這個 namespace 掛到特定的 project 底下。
-
-最後透過 catalog 名稱, Template 的名稱與版本來創造 App。
-準備完畢後透過 Terraform Apply 就可以於網頁看到 App 被創造完畢了。
-
-![](https://i.imgur.com/7br0h0p.png)
-
-透過 Terraform 的整合，其實可以更有效率的用 CI/CD 系統來管理 Rancher 上的應用程式，如果應用程式本身需要透過 Helm 來進行客製化，這部分也都可以透過 Terraform 內的參數來達成，所以可以更容易的來管理 K8s 內的應用程式，有任何需求想要離開時，就修改 Terraform 上的設定，然後部署即可。
+接下來的文章就會從 Rancher Catalog 出發，接者探討 GitOps 與 Rancher Fleet 的使用方式。

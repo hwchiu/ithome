@@ -1,6 +1,5 @@
-Day 16 - 應用程式部署 - 淺談 Rancher 的應用程式管理
-==============================================
-
+Day 16 - Rancher 指令工具的操作
+===============================
 
 本文將於賽後同步刊登於筆者[部落格](https://hwchiu.com/)
 
@@ -10,73 +9,225 @@ Day 16 - 應用程式部署 - 淺談 Rancher 的應用程式管理
 
 對於 Kubernetes 與 Linux Network 有興趣的可以參閱筆者的[線上課程](https://course.hwchiu.com/)
 
-# 概念探討
-Rancher 作為一個 Kubernetes 管理平台，提供不同的方式將 Kubernetes 叢集給匯入到 Rancher 管理平台中，不論是已經創立的 Kubernetes 或是先透過 Rancher 創造 RKE 接者匯入到 Rancher 中。
+# 前言
+之前曾經探討過如何透過 Terraform 來管理 Rancher，為了完成這個步驟必須要於 Rancher UI 中去取得相關的 Access Token/Secret Key。實際上該 Access Token 除了給 Terraform 去使用外，也可以讓 Rancher 自行開發維護的 CLI 工具來使用。
+本篇文章就來介紹一下 Rancher CLI 可以怎麼用，裡面有什麼好用值得注意的功能
 
-但是 Kubernetes 終究只是一個容器管理平台，前述介紹的各種機制或是 Rancher 整合的功能都是輔助 Kubernetes 的維護，對於團隊最重要的還是產品本身，產品可能是由數個應用程式所組合而成，而每個應用程式可能對應到 Kubernetes 內又是多種不同的物件，譬如 Deployment, Service, StorageClass 等。
-接下來會使用應用程式這個詞來代表多個 Kubernetes 內的資源集合。
+# CLI
 
-過往探討到部署應用程式到 Kubernetes 叢集內基本上會分成兩個方向來探討
-1. 如何定義與管理應用程式供團隊使用
-2. 部署應用程式給到 Kubernetes 叢集的流程
+基本上 Rancher CLI 的功用跟網頁沒差多少，最主要的目的是讓使用者可以透過指令列的方式去操作 Rancher 而非透過網頁操作，這個概念跟 Terraform 是完全一致的。
+因此實務上我會推薦都使用 Terraform 工具來管理 Rancher 而非使用 CLI 這個工具，那這樣還有必要學習 CLI 的用法嗎?
 
-# 定義與管理應用程式
+答案是肯定的，因為學得愈廣，當問題出現時腦中就會有更多的候選工具供你選擇去思考該如何解決面前的問題。
+Rancher CLI 有一個好用的功能我認為是 Terraform 比不上的，這點稍後會來探討。
 
-Kubernetes 的物件基本上可以透過兩種格式來表達，分別是 JSON 與 YAML，不過目前主流還是以 YAML 為主。
-這意味這一個最簡單管理應用程式的方式就是使用一堆 YAML 檔案，檔案內則是各種 Kubernetes 的物件。
+首先如同先前操作一樣，到 Rancher UI 去取得相關的 Access Token/Secret Key，不過這一次因爲 CLI 會透過 HTTP 進行授權存取，所以會用到的是下方的 Bearer Token，其實就是把 Access Key 跟 Secret Key 給合併而已。
 
-這些應用程式本身還需要考慮到下列使用情境
-1. 該應用程式會不會需要跨團隊使用
-2. 該應用程式是否需要針對不同環境有不同的參數
-3. 該應用程式本身有沒有其他相依性，譬如部署 A 應用程式會需要先部署 B 應用程式
-4. ...等
+![](https://i.imgur.com/Q2OEqPy.png)
+![](https://i.imgur.com/R7PFk3e.png)
 
-上述的這些使用情境是真實存在的，而為了解決這些問題，大部分情況下都不會使用純 YAML 檔案來管理應用程式，譬如想要讓一個 Service 針對不同環境有不同設定就不太好處理，除了準備多個幾乎一樣的檔案外幾乎沒有辦法。
-目前主流的管理方式有 Helm, Kustomize，其餘的還有 ksonnet 等。
-不同解決方案都採用不同的形式來管理與部署應用程式，舉例來說
-使用 Helm 的使用者可以採用下列不同方式來安裝應用程式
-1. helm install
-2. helm template | kubectl apply -
+取得這些資訊之後就來去 [Rancher CLI](https://github.com/rancher/cli/releases) 官網下載相對應的 CLI 版本，這邊要注意的是 Rancher CLI 的版本不會完全跟 Rancher 對齊。
+Rancher 本身的 Release Note 都會描述當前版本對應的 CLI 與 RKE 的版本。
+對應到 Rancher v2.5.9 的 CLI 版本是 v.2.4.11
 
-而使用 kustomize 的使用者則可以使用
-1. kustomize ...
-2. kubectl -k ...
+![](https://i.imgur.com/D0ZQKw0.png)
 
-因為 kubectl 目前已經內建 kustomize 的功能，所以直接使用 kustomize 指定或是 kubectl 都可以。
-當團隊選擇好如何管理與部署這些應用程式後，下一個問題就是如何部署這些 Helm/Kustomize 物件到 Kubernetes 叢集。
+安裝完畢後可以執行看看確認版本是否符合
+```bash=
+╰─$ rancher --version
+rancher version v2.4.11
 
-# 部署流程
-基本上所有的部署都以自動化為目標去探討，當然這並不代表手動部署就沒有其價值，畢竟在自動化部署有足夠的信心前，團隊也必定會經歷過各式各樣的手動部署，甚至很多自動化的撰寫與開發也是都仰賴手動部署的經驗。
+╰─$ rancher --help
+Rancher CLI, managing containers one UTF-8 character at a time
 
-從 Rancher 的角度來看，自動化部署有三種不同的方式
-1. Kubeconfig
-2. Rancher Catalog
-3. Rancher Fleet
+Usage: rancher [OPTIONS] COMMAND [arg...]
 
-下面稍微探討一下這三者的概念與差異。
+Version: v2.4.11
 
-# Kubeconfig
-一個操作 Kubernetes 最簡單的概念就是直接使用 kubectl/helm 等指令進行控制，而 Rancher 也有針對每個帳戶提供可存取 Kubernetes 叢集所要使用的 KUBECONFIG。
+Options:
+  --debug                   Debug logging
+  --config value, -c value  Path to rancher config (default: "/Users/hwchiu/.rancher") [$RANCHER_CONFIG_DIR]
+  --help, -h                show help
+  --version, -v             print the version
 
-假設團隊已經完成 CI/CD 的相關流程，就可以於該流程中透過該 KUBECONFIG 來得到存取該 Kubernetes 的權限，接者使用 Helm/Kubectl 等功能來部署應用程式到叢集中。
+Commands:
+  apps, [app]                                       Operations with apps. Uses helm. Flags prepended with "helm" can also be accurately described by helm documentation.
+  catalog                                           Operations with catalogs
+  clusters, [cluster]                               Operations on clusters
+  context                                           Operations for the context
+  globaldns                                         Operations on global DNS providers and entries
+  inspect                                           View details of resources
+  kubectl                                           Run kubectl commands
+  login, [l]                                        Login to a Rancher server
+  multiclusterapps, [multiclusterapp mcapps mcapp]  Operations with multi-cluster apps
+  namespaces, [namespace]                           Operations on namespaces
+  nodes, [node]                                     Operations on nodes
+  projects, [project]                               Operations on projects
+  ps                                                Show workloads in a project
+  server                                            Operations for the server
+  settings, [setting]                               Show settings for the current server
+  ssh                                               SSH into a node
+  up                                                apply compose config
+  wait                                              Wait for resources cluster, app, project, multiClusterApp
+  token                                             Authenticate and generate new kubeconfig token
+  help, [h]                                         Shows a list of commands or help for one command
 
-基本上使用這種方式沒有什麼大問題，畢竟 RKE 也是一個 Kubernetes 叢集，所以如果團隊已經有現存的解決方案是透過這種類型部署的話，繼續使用這種方式沒有任何問題。
+Run 'rancher COMMAND --help' for more information on a command.
+```
 
-# Rancher Catalog
+從上述的 Help 可以看到該 CLI 有滿多子指令可以使用的，包含了 clusters, context, nodes, projects, ssh 等各種功能。
 
-Rancher 本身有一個名為 catalog 的機制用來管理要部署到 Rancher 內的應用程式，這些應用程式必須要基於 Helm 來管理。
+為了使用這些功能，必須要使用 login 來獲得與目標 Rancher 溝通的能力，這時候前述獲得的 Bearer Token 就派上用場了
 
-其底層背後也是將 Helm 與 Helm values 轉換為 YAML 檔案然後送到 Kubernetes 中。
-這種作法跟第一種最大的差異就是，所有的安裝與管理中間都多了一層 Rancher Catalog 的管理。
 
-CI/CD 流程要存取時就不是針對 Kubernetes 叢集去使用，也不需要取得 KUBECONFIG。
-相反的需要取得 Rancher API Token，讓你 CI/CD 內的腳本有能力去呼叫 Rancher，要求 Rancher 去幫忙創建，管理，刪除不同的 Catalog。
+```bash
+╰─$ rancher login --name test -t token-8s72l:b425shbg49l7rs9mwlqzk89z6tr472qj94wx6vrm9pwh5r6mklsxf6 https://rancher.hwchiu.com/v3                                                                                                130 ↵
+NUMBER    CLUSTER NAME   PROJECT ID        PROJECT NAME    PROJECT DESCRIPTION
+1         rke-it         c-9z2kx:p-5gdg9   System          System project created for the cluster
+2         rke-it         c-9z2kx:p-lxsz6   Default         Default project created for the cluster
+3         rke-qa         c-p4fmz:p-fccdb   System          System project created for the cluster
+4         rke-qa         c-p4fmz:p-r8wvz   Default         Default project created for the cluster
+5         ithome-dev     c-z8j6q:p-p6xrd   myApplication
+6         ithome-dev     c-z8j6q:p-q46q5   System          System project created for the cluster
+7         ithome-dev     c-z8j6q:p-vblmb   Default         Default project created for the cluster
+8         local          local:p-6knqb     System          System project created for the cluster
+9         local          local:p-hgjqp     Default         Default project created for the cluster
+Select a Project:5
+INFO[0121] Saving config to /Users/hwchiu/.rancher/cli2.json
+```
 
-這種方式只限定於 Rancher 管理的叢集，所以如果團隊中不是每個叢集都用 Rancher 管理，那這種方式就不推薦使用，否則只會讓系統混亂。
+登入完畢後，系統會要求你選擇一個 Project 做為預設操作的 Project，選擇完畢後就可以透過 CLI 進行操作了。
 
-# Rancher Fleet
-Rancher Fleet 是 Rancher v2.5 正式推出的功能，其替代了過往的 Rancher pipeline(前述文章沒有探討，因為基本上要被淘汰了)的部署方式。
+CLI 基本上可以完成 UI 所能達到的功能，譬如可以使用 cluster 子指令來觀察 Cluster 的狀態，知道目前有哪些 Cluster，上面的名稱與資源又分別有多少。
 
-Fleet 是一個基於 GitOps 策略的大規模 Kubernetes 應用部署解決方案，基於 Rancher 的架構使得 Fleet 可以很輕鬆的存取所有 Rancher 控管的 Kubernetes 叢集，同時 GitOps 的方式讓開發者可以簡單的一口氣將應用程式更新到多個 Kubernetes 叢集。
+```bash=
+╰─$ rancher clusters
+CURRENT   ID        STATE     NAME         PROVIDER                    NODES     CPU         RAM             PODS
+          c-9z2kx   active    rke-it       Azure Container Service     3         1.25/5.70   1.61/13.38 GB   18/330
+          c-p4fmz   active    rke-qa       Rancher Kubernetes Engine   2         0.42/4      0.24/7.49 GB    14/220
+*         c-z8j6q   active    ithome-dev   Rancher Kubernetes Engine   5         5.97/10     3.37/38.39 GB   110/550
+          local     active    local        Imported                    3         0.53/6      0.31/11.24 GB   22/330
+```
 
-接下來的文章就會從 Rancher Catalog 出發，接者探討 GitOps 與 Rancher Fleet 的使用方式。
+如果採用的是舊版本的 catalog 的安裝方式的話，也可以透過 apps 子指令觀察安裝的所有資源，當然也可以透過 Rancher CLI 來安裝 application， 所以也會有團隊嘗試使用 Rancher CLI 搭配 CI/CD 流程來安裝 Rancher 服務，不過實務上會推薦使用 Terraform, 因為更有結構同時使用更為容易。
+
+```bash=
+╰─$ rancher apps
+ID                            NAME                  STATE     CATALOG               TEMPLATE               VERSION
+p-p6xrd:dashboard-terraform   dashboard-terraform   active    dashboard-terraform   kubernetes-dashboard   4.5.0
+```
+
+那到底有什麼功能是值得使用 Rancher CLI 的? 我認為有兩個，分別是
+1. Node SSH
+2. Kubernetes KUBECONFIG
+
+前述安裝的 Kubernetes 叢集有一個是採用動態節點的方式，Rancher 透過 Azure 創造這些節點的時候都會準備一把連接用的 SSH Key，這把 Key 是可以透過 UI 的方式下載，不過使用上我認為不太方便。而 Rancher CLI 就有實作這功能，可以讓使用者很方便的透過 CLI 進入到節點中。
+
+指令的使用非常簡單，透過 rancher ssh 搭配節點名稱即可使用。
+如果節點本身有兩個 IP 時，透過 -e 可以選擇使用 external 的 IP 地址來使用，否則預設會使用 internal 的 IP 地址。
+
+
+```bash=
+╰─$ rancher ssh -e node1
+The authenticity of host '40.112.223.2 (40.112.223.2)' can't be established.
+ECDSA key fingerprint is SHA256:dqMCUUC4iZk/gZealQ+Ck3VhG/KaLaCVdkuLYwZfgsE.
+Are you sure you want to continue connecting (yes/no/[fingerprint])? yes
+Warning: Permanently added '40.112.223.2' (ECDSA) to the list of known hosts.
+Welcome to Ubuntu 18.04.5 LTS (GNU/Linux 5.4.0-1055-azure x86_64)
+
+ * Documentation:  https://help.ubuntu.com
+ * Management:     https://landscape.canonical.com
+ * Support:        https://ubuntu.com/advantage
+
+  System information as of Wed Aug 25 22:00:22 UTC 2021
+
+  System load:  0.39               Users logged in:        0
+  Usage of /:   33.9% of 28.90GB   IP address for eth0:    192.168.0.5
+  Memory usage: 44%                IP address for docker0: 172.17.0.1
+  Swap usage:   0%                 IP address for cni0:    10.42.2.1
+  Processes:    244
+
+ * Super-optimized for small spaces - read how we shrank the memory
+   footprint of MicroK8s to make it the smallest full K8s around.
+
+   https://ubuntu.com/blog/microk8s-memory-optimisation
+
+13 updates can be applied immediately.
+To see these additional updates run: apt list --upgradable
+
+
+*** System restart required ***
+Last login: Wed Aug 11 07:28:47 2021 from 52.250.127.84
+docker-user@node1:~$
+```
+
+因此如果今天有需求想要進入到這些節點進行除錯時，透過 CLI 可以大大的簡化整個過程。
+
+另外一個好用的功能就是 kubeconfig 的存取，試想今天一個系統管理員想要透過指令的方式去管理數十個由 Rancher 維護的 Kubernetes 叢集，最簡單的做法透過網頁的方式將每個叢集的 Kubeconfig 一個又一個的抓下來並且自行處理 kubeconfig 的格式。
+
+透過 CLI 的方式可以讓上述的行為更加簡單甚至自動化。
+
+```bash=
+╰─$ rancher cluster kf
+Return the kube config used to access the cluster
+
+Usage:
+  rancher clusters kubeconfig [CLUSTERID CLUSTERNAME]
+```
+
+透過 rancher clusters kf 的指令加上 cluster 名稱就可以取得該叢集的 KUBECONFIG 內容，譬如
+```bash=
+╰─$ rancher cluster kf rke-it
+apiVersion: v1
+kind: Config
+clusters:
+- name: "rke-it"
+  cluster:
+    server: "https://rancher.hwchiu.com/k8s/clusters/c-9z2kx"
+
+users:
+- name: "rke-it"
+  user:
+    token: "kubeconfig-user-qr5lq:v7htf5kcz2s5nv7b5fzjz68ntlxf2978d5rrgxbrjhz2zv7vjhq9h7"
+
+
+contexts:
+- name: "rke-it"
+  context:
+    user: "rke-it"
+    cluster: "rke-it"
+
+current-context: "rke-it"
+```
+
+同時搭配 rancher cluster ls 的指令，我們就可以撰寫一個 for 迴圈來依序取得這些內容，並且將這些內容抓下來處理，譬如
+
+```bash=
+╰─$
+for c in $(rancher clusters ls --format  '{{.Cluster.Name}}');
+do
+        rancher cluster kf $c    ;
+done
+
+```
+
+上述功能如果與 kubectl 的 plugin, kconfig 整合就可以更順利的將多個 KUBECONFIG 整合成一個檔案，並且將此功能撰寫成一個 shell function, 這樣就可以隨時隨地的去更新當前環境的 Kubeconfig.
+譬如
+
+
+```bash=
+function update_k8s_config {
+    mv ~/.kube/configs ~/.kube/configs-`date +%Y-%m-%d-%H%M%S`
+    mkdir ~/.kube/configs
+
+
+    for c in $(rancher clusters ls --format  '{{.Cluster.Name}}'); do
+        rancher cluster kf $c > ~/.kube/configs/$c
+    done
+
+    kubectl konfig merge ~/.kube/configs/* > ~/.kube/config
+}
+
+```
+
+剩下 CLI 的功能就留給大家自己去嘗試看看囉。

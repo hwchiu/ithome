@@ -101,15 +101,16 @@
     * Rancher 雜談
         * [其他事項](2021/day14.md)
         * [Rancher & Infrastructure as Code][2021/day15.md]
+        * [Rancher 指令工具的操作][2021/day16.md]
     * Rancher 應用程式部署
-        * [淺談 Rancher 的應用程式管理][2021/day16.md]
-        * [Rancher Catalog 介紹(v2.0~v2.4)][2021/day17.md]
-        * [Rancher App & Marketplace 介紹(v2.5)][2021/day18.md]
+        * [淺談 Rancher 的應用程式管理][2021/day17.md]
+        * [Rancher Catalog 介紹(v2.0~v2.4)][2021/day18.md]
+        * [Rancher App & Marketplace 介紹(v2.5)][2021/day19.md]
     * GitOps 部署
-        * [淺談 GitOps ][2021/day19.md]
-        * [GitOps 解決方案比較][2021/day20.md]
-        * [Rancher Fleet 介紹][2021/day21.md]
-        * [Fleet 環境架設與介紹][2021/day22.md]
-        * [Fleet 玩轉第一個 GitOps][2021/day23.md]
-        * [Fleet.yaml 檔案探討][2021/day24.md]
-        * [Fleet 客製化應用程式部署(一)][2021/day25.md]
+        * [淺談 GitOps ][2021/day20.md]
+        * [GitOps 解決方案比較][2021/day21.md]
+        * [Rancher Fleet 介紹][2021/day22.md]
+        * [Fleet 環境架設與介紹][2021/day23.md]
+        * [Fleet 玩轉第一個 GitOps][2021/day24.md]
+        * [Fleet.yaml 檔案探討][2021/day25.md]
+        * [Fleet 客製化應用程式部署(一)][2021/day26.md]

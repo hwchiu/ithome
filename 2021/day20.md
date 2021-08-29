@@ -1,5 +1,5 @@
-Day 20 - GitOps 解決方案比較
-===============================
+Day 20 - 初探 GitOps 的概念
+=========================
 
 本文將於賽後同步刊登於筆者[部落格](https://hwchiu.com/)
 
@@ -9,78 +9,77 @@ Day 20 - GitOps 解決方案比較
 
 對於 Kubernetes 與 Linux Network 有興趣的可以參閱筆者的[線上課程](https://course.hwchiu.com/)
 
-#  前言
+# 前言
 
-前篇文章探討了基本的 GitOps 概念，GitOps 本身沒有嚴謹明確的實作與定義，所以任何宣稱符合 GitOps 工作流程的解決方案其實作方式與使用方有可能並不相同。
+前述文章探討了應用程式部署的基本思路，從 Rancher 管理的叢集出發有至少三種不同的部署方式，分別為
+1. 直接取得 Kubeconfig 獲得對 Kubernetes 叢集操作的權限
+2. 使用 Rancher 內的應用程式機制(Catalog or App & Marketplace) 來安，並可透過 Terraform 來達到 Infrastructure as Code 的狀態。
+3. 使用 GitOps 的方式來管理 Kubernetes  應用程式
 
-本文將探討數個常見的 GitOps 解決方案，針對其基本概念進行研究，一旦對這些解決方案都有了基本認知後，就可以更快的理解 Rancher Fleet 這套由 Rancher v2.5 後主推的 GitOps 解決方案是什麼，該怎麼使用。
+本篇文章開始將探討何謂 GitOps 以及 GitOps 能夠帶來的好處，並且最後將基於 Rancher FLeet 去進行一系列 GitOps 解決方案的
+示範。
 
-# KubeStack
-GitOps 並不是專屬於 Kubernetes 的產物，任何架構與專案都有機會採用 GitOps 的概念來實作。
-KubeStack 是目前極為少數非 Kubernetes 應用程式的 GitOps 解決方案，官網宣稱是一個專注於 Infrastructure 的 GitOps 框架。該架構基於 Terraform 去發展，因此 KubeStack 的使用者實際上還是撰寫 Terraform ，使用 Terraform 的語言。 KubeStack 針對 Terraform 發展了兩套不同的 Terraform Module，分別是 Cluster Module 以及 Cluster Service Module。
+# GitOps
 
-Cluster Module 讓使用者可以方便的去管理 Kubernetes 叢集，該叢集可以很輕鬆的去指定想要建立於哪種雲端架構上，透過 KubeStack 使用者也可以很容易的針對不同地區不管雲端架構來搭建多套的 Kubernetes 叢集。
-其實整體概念滿類似 Rancher 的，只不過這邊是依賴 Terraform 來管理與多個雲端架構的整合，同時 Kubernetes 叢集也會採用原生版本或是 Kubernetes 管理服務的版本。
+就如同 DevOps 是由 DEV + OPS 兩種概念結合而成， GitOps 的原意來自於 Git 以及 OPS，目的是希望以 Git 上的資料為基底去驅動 Ops 相關的操作。
 
-Cluster Service Module 目的是用來創造 Kubernetes 相關資源，所以使用上會先透過 Cluster Module 創建 Kubernetes 叢集，接者透過 Cluster Service Module 部署相關服務。
-Cluster Service Module 的目的並不是部署各種團隊的商業邏輯服務，相反的，其目的是則是部署前置作業，任何真正部署前需要用到的服務都會透過這個 Module 來處理。預設情況下 KubeStack 有提供 Catalog 清單來提供預設提供的服務，包含了
-1. ArgoCD/Flux
-2. Cert-Manager
-3. Sealed Secrets
-4. Nginx Ingress
-5. Tekton
-6. PostgreSQL Operator
-7. Prometheus Operator
+該詞源自於 2017 年由 Weave Works 所提出，GitOps 本身並沒有一個非常標準的定義與實作方式，就如同 DevOps 的文化一樣， 不同人使用 GitOps 的方式都不同，但是基本上都會遵循一個大致上的文化。
 
-而前述兩個則是針對 kubernetes 應用程式的 GitOps 解決方案。
+GitOps 的精神就是以 Git 作為唯一的資料來源，所有的應用程式部署都只能依賴這份 Git 上內容去變化。
+基於這種精神，下列行為都希望盡量減少甚至避免。
+1. 直接透過 KUBECONNFIG 對叢集直接使用 Helm/Kubectl 去進行操作
+2. 透過其他機制(Rancher Catalog/App) 去對叢集進行應用程式的管理
 
-KubeStack 的使用方式是採用前述探討的第一種實作，團隊需要準備一個專屬的 CI/CD Pipeline，其內透過呼叫 Terraform 的方式來完成整個更新的流程，對於 KubeStack 有興趣的可以參閱其官網。
+當 Git 作為一個唯一的資料來源時，整個部署可以帶來下列的好處
+1. Git 本身的管理控制提供了應用程式的稽核機制，透過 Git 機制可以知道誰於什麼時間點什麼時間點帶來了什麼樣的改變。
+2. 需要退版的時候，可以使用 Git Revert 的方式來退版 Git 內容，因此應用程式也會退版
+3. 可以透過 Git 的方式(Branch, tag) 等本身機制來管理不同環境的應用程式
+4. 由於 Git 本身都會使用 Pull Request/Git Review 等機制來管理程式碼管理，因此該機制可以套用到應用程式管理上。
 
+這邊要注意的是， GitOps 本身的並沒有特別限制只能使用於 Kubernetes 環境之中，只是當初 Weave work 講出這名詞時是基於 Kubernetes 的環境來探討，因此後續比較多的解決方案也都是跟 Kubernetes 有關，但是這並不代表 GitOps 只能使用於 Kubernetes 內，任何的使用環境只要有基於 Git/Ops 的理念，基本上都可以想辦法實作 GitOps.
 
-# ArgoCD/Flux
-探討到開源且針對 Kubernetes 應用程式部署的解決方案時，目前最知名的莫過於 ArgoCD 以及 Flux。
+但是 GitOps 到底要如何實作? 要如何將 Git 的更動給同步到應用程式的部署則沒有任何規範與標準，目前主要有兩種主流，以下都是一種示範介紹，實務上實作時可以有更多不同的變化。
+1. 專屬 CI/CD 流水線
+2. 獨立 Controller
 
-ArgoCD 本身的生態系非常豐富，該品牌底下有各式各樣不同的專案，專注於不同功能，而這些功能又有機會彼此互相整合，譬如
-1. ArgoCD
-2. Argo Workflow
-3. Argo RollOut
+接下來以 Kubernetes 為背景來探討一下可能的解法。
 
-ArgoCD 是專注於 GitOps 的解決方案， Argo Workflow 是套 Multi-Stage 的 pipeline 解決方案，而 Argo Rollout 則是希望能夠針對 Kubernetes 提供不同策略的部署方式，譬如藍綠部署，金絲雀部署等，這些都是 Kubernetes 原生不方便實作的策略。
+# 專屬 CI/CD 流水線
 
-ArgoCD 採用的是第二種實作方式，需要於 Kubernetes 內安裝 ArgoCD 解決方案，該解決方案大致上會於叢集內安裝
-1. Argo API Server
-2. Argo Controller
-3. Dex Server
-4. Repository Service
+這種架構下會創立一個專屬的 CI/CD Pipeline, 該 Pipeline 的觸發條件就是 Git 專案發生變化之時。
+所以 Pipeline 中會去抓取觸發當下的 Git 內容，接者從該內容中判別當前有哪些檔案被修改，從這些被修改的檔案去判別是哪些應用程式有修改，接者針對被影響的應用程式去進行更新。
 
-以下架構圖來自於[官方網站](https://argo-cd.readthedocs.io/en/stable/)
-![](https://i.imgur.com/VdVPq84.png)
+以 Kubernetes 來說，通常就是指 CI/CD Pipeline 中要先獲得 KUBECONFIG 的權限，如果使用的是 Rancher，則可以使用 Rancher API Token。
+當系統要更新應用程式時，就可以透過這些權限將 Kubernetes 內的應用程式進行更新。
 
-Argo Controller/Repository Service 是整個 GitOps 的核心功能，能夠偵測 Git 專案的變動並且基於這些變動去比較當前 Kubernetes 內的即時狀態是否符合 Git 內的期望狀態，並且嘗試更新以符合需求。
-Argo API Server 則是提供一層 API 介面，讓外界使用者可以使用不同方式來操作 ArgoCD 解決方案，譬如 CLI, WebUI 等。
+這種架構基本上跟傳統大家熟悉的 CD 流程自動化看起來沒有什麼不同，不過 GitOps 會更加強調以 Git 為本，所以會希望只有該 CI/CD Pipeline 能夠有機會去更新應用程式，這也意味任何使用者直接透過 KUBECONFIG 對 Kubernetes 操作這件事情是不被允許的。
 
-ArgoCD 安裝完畢後就會提供一個方式去存取其管理網頁，大部分的使用者都會透過該管理網頁來操作整個 ArgoCD，該介面的操作符合不同需求的使用者，譬如 PM 想要理解當前專案部署狀態或是開發者想要透過網頁來進行一些部署操作都可以透過該網頁完成。
-為了讓 ArgoCD 可以更容易的支援不同帳戶的登入與權限管理，其底層會預先安裝 Dex 這套 OpenID Connector 的解決方案，使用者可以滿容易地將 LDAP/OAuth/Github 等帳號群組與 ArgoCD 整合，接者透過群組的方式來進行權限控管。
+所以 GitOps 不單單是一個工具與解決方案，也是一個文化。
 
-應用程式的客製化也支援不少，譬如原生的 YAML，Helm, Kustomize 等，這意味者大部分的 kubernetes 應用程式都可以透過 ArgoCD 來部署。
+# 獨立 Controller
+第二個解決方式是目前 Kubernetes 生態中的常見作法，該作法必須要於 Kubernetes 內部署一個 Controller，該 Controller 本身基於一種狀態檢查的無限迴圈去運行，一個簡單的運作邏輯如下。
+1. 檢查目標 Git 專案內的檔案狀態
+2. 檢查當前 Kubernetes 叢集內的應用程式狀態
+3. 如果(2)的狀態與(1)不同，就更新叢集內的狀態讓其與(1)相同
 
-ArgoCD 大部分的使用者一開始都會使用其 UI 進行操作與設定，但是這種方式基本上與 Rancher 有一樣的問題
-1. UI 提供的功能遠少於 API 本身，UI 不能 100% 發揮 ArgoCD 的功能
-2. 設定不易保存，不容易快速複製一份一樣的 ArgoCD 解決方案，特別是當有災難還原需求時。
+一句話來說的話，該 Controller 就是用來確保 Git 專案所描述的狀態與目標環境的現行狀態一致。
 
-舉例來說，ArgoCD 可以管理多套 Kubernetes 叢集，這意味你可以於叢集(A)中安裝 ArgoCD，透過其管理叢集B,C,D。
-管理的功能都可以透過網頁的方式來操作，但是要如何讓 ArgoCD 有能力去存取叢集 B,C,D，相關設定則沒辨法透過網頁操作，必須要透過 CLI 或是修改最初部署 ArgoCD時的 YAML 檔案。
+為了完成上述流程，該 Controller 需要有一些相關權限
+1. 能夠讀取 Git 專案的權限
+2. 能夠讀取 Kubernetes 內部狀態的權限
+3. 能夠更新 Kubernetes 應用程式的權限
 
-ArgoCD 實際上於 Kubernetes 內新增了不少 CRD(Custom Resource Definition)，使用者於網頁上的所有設定都會被轉換為一個又一個的 Kubernetes 物件，而且 ArgoCD 本身的部署也是一個又一個 YAML 檔案，因此實務上解決設定不易保存的方式就是 「讓 ArgoCD 透過 GitOps 的方式來管理 ArgoCD」
+由於該 Controller 會部署到 Kubernetes 內部，所以(2+3)的權限問題不會太困難，可以透過 RBAC 下的 Service Account 來處理。
+(1)的部分如果是公開 Git 專案則沒有太多問題，私人的話就要有存取的 Credential 資訊。
 
-該工作流程如下(範例)
-1. 將所有對 ArgoCD 的設定與操作以 YAML 的形式保存於一個 Git 專案中
-2. 使用官方 Helm 的方式去安裝最乾淨的 ArgoCD
-3. 於 ArgoCD 的網頁上新增一個應用程式，該應用程式目標是來自(1)的 Git 專案
-4. ArgoCD 會將(1)內的 Git 內容都部署到 Kubernetes 中
-5. ArgoCD 網頁上就會慢慢看到所有之前設定的內容
+以下是一個基於 Controller 架構的部署示範
+1) 先行部署 Controller 到 Kubernetes 叢集內
+2) 設定目標 Git 專案與目標 k8s 叢集/namespace 等資訊。
+3) 開發者針對 Git 專案進行修改。
+4) Controller 偵測到 Git 專案有變動
+5) 獲取目前 Git 狀態
+6) 獲取目前 叢集內的應用程式狀態
+7) 如果(5),(6)不一樣，則將(5)的內容更新到叢集中
+8) 反覆執行 (4~7) 步驟。
 
-如果對於 ArgoCD 有興趣的讀者可以參考我開設的線上課程[kubernetes 實作手冊： GitOps 版控整合篇
-](https://hiskio.com/courses/490/about?promo_code=R3Y9O2E)，該課程中會實際走過一次 ArgoCD 內的各種操作與注意事項，並且最後也會探討 ArgoCD 與 Argo Rollout 如何整合讓部署團隊可以用金絲雀等方式來部署應用程式。
-
-下篇文章就會回到 Rancher 專案身上，來探討 Rancher Fleet 是什麼，其基本元件有哪些，接者會詳細的介紹 Rancher Fleet 的用法。
+到這邊為止探討了關於 GitOps 的基本概念，接下來就會數個知名的開源專案去進行探討

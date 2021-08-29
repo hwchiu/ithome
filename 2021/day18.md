@@ -1,5 +1,5 @@
-Day 18 - Rancher App(v2.5) 介紹
-==============================
+Day 18 - Rancher Catalog(v2.0~v2.4) 介紹
+=======================================
 
 本文將於賽後同步刊登於筆者[部落格](https://hwchiu.com/)
 
@@ -9,130 +9,159 @@ Day 18 - Rancher App(v2.5) 介紹
 
 對於 Kubernetes 與 Linux Network 有興趣的可以參閱筆者的[線上課程](https://course.hwchiu.com/)
 
-# 前言
+# Rancher Application
 
-前篇文章介紹了 Rancher(v2.0 ~ v2.4) 中主打的應用程式管理系統， Catalog，所有的 Catalog 都必須要於 Cluster Manager 的介面中去管理。
+Rancher v2.5 是一個非常重要的里程碑，有很多功能於這個版本進入了 v2 下一個里程碑，本章節要探討的應用程式部署實際上也有這個轉變。
 
-而 Rancher v2.5 開始主打 Cluster Explorer 的介面，該介面中又推行了另外一套應用程式管理系統，稱為 App & Marketplace。
+Rancher Catalog 是 Rancher v2.0 ~ v2.4 版本最主要的部署方式，而 v2.5 則改成 Cluster Explorer 內的 App&Marketplace 的方式。
+也可以將這個差異說成由 Cluster Manager 轉換成 Cluster Explorer。
 
-事實上前述的章節就已經有透過這個新的系統來安裝 Monitoring 的相關資源，因此現在 Rancher 都已經使用這個新的機制來提供各種整合服務，因此後續的新功能與維護也都會基於這個新的機制。
+那為什麼這個已經要被廢除的功能還需要來介紹？
+主要是我自己針對 v2.5 的使用經驗來看，我認為部署應用程式用 Cluster Manager 看起來還是比較簡潔有力，相反的 Cluster Explorer 內的機制沒有好到會讓人覺得替換過去有加分效果。
 
-使用上我認為兩者還是有些差異，因此對於一個 Rancher 的使用者來說最好兩者都有碰過，稍微理解一下其之間的差異，這樣使用上會更有能力去判斷到底要使用哪一種。
+所以接下來就針對這兩個機制分享一下使用方式。
 
-# Rancher App
-新版的應用程式架構基本上跟前述的沒有不同，不過名詞上整個大改，相關名詞變得與 Helm 生態系更佳貼近，譬如舊版使用 Catalog 來描述去哪邊抓取 Helm 相關的應用程式，新版本則是直接貼切的稱為 Helm Repo。
+# Rancher Catalog
 
-Cluster Explorer 的狀態下，左上方點選到 Apps & Marketplace 就可以進入到新版的系統架構，
+Rancher Catalog 的核心概念分成兩個
 
-該架構中左方有三個類別，其中第二個 Charts Repositories 就是新版的 Catalog，畫面如下。
+1. 如何取得 Kubernetes 應用程式，這部分的資訊狀態就稱為 Catalog
+2. 將 Catalog 中描述的應用程式給實體化安裝到 Kubernetes 中
 
-![](https://i.imgur.com/vxscc1f.png)
+Catalog 的核心精神就是要去哪邊取得 Kubernetes 應用程式，Catalog 支援兩種格式
+1. Git 專案，底層概念就是能夠透過 git clone 執行的專案都可以
+2. Helm Server，說到底 Helm Server 就是一個 HTTP Server，這部分可以自行實作或是使用 chartmuseum 等專案來實作。
 
-預設系統上有兩個 Chart Repo，其中之前安裝的 Monitoring 就是來自於這邊。
-接者點選右上方的 Create 就會看到新版的創立畫面
+由於 Helm 本身還有版本差別， Helm v2 或是 Helm v3，因此使用上需要標注到底使用哪版本。
 
-![](https://i.imgur.com/spu6lFs.png)
+Catalog 也支援 Private Server，不過這邊只支援使用帳號密碼的方式去存取。使用權限方面 Catalog 也分成全 Rancher 系統或是每個 Kubernetes 叢集獨立設定。
 
-新版本的創建畫面更加簡潔與簡單，首先可以透過 target 來選擇到底要使用 Git 還是 HTTP 來存取，針對 Private Helm Repo 這次則提供了兩種驗證方式，譬如 SSH Key 與 HTTP Basic 兩種方式。
+首先如下圖，切換到 Global 這個範圍，接者可以於 Tools 中找到 Catalog 這個選項。
 
-創造完畢後就可以於系統上看到新建立的 Helm Repo，系統預設的兩個 Helm Repo 都是基於 Git 去處理，而本篇文章新創立的則是 HTTP。
+![](https://i.imgur.com/Sa3pydP.png)
 
-![](https://i.imgur.com/amfHMyp.png)
+或是如下圖，切換到 ithome-dev 這個叢集中，也可以看到 Tools 中有 Catalog 的範圍。
 
-有了 Helm Repo 後，下一步就是要創造應用程式，切換到 Charts 的介面就可以看到如下的畫面。
+![](https://i.imgur.com/OkbmzuM.png)
 
-![](https://i.imgur.com/L8uL7wj.png)
+這邊我們使用 Kubernetes Dashboard 這個專案作為一個示範，該專案的 Helm Chart 可以經由 https://kubernetes.github.io/dashboard 這個 Helm Server 去存取。
 
-畫面中上方顯示了目前擁有的 Helm Repo 有哪些，這邊可以透過勾選的方式來過濾想要顯示的 Helm Repo
-只有單純勾選 dashboard 後就可以看到 kubernetes-dashboard 這個 Helm Chart。
+這類型的伺服器預設都沒有 index.html，所以存取會得到 404 是正常的，想要存取相關內容可以使用下列方式去存取 https://kubernetes.github.io/dashboard/index.yaml，這也是 helm 指令去抓取相關資源的辦法，可以知道該 Server 上會有多少 Helm Charts 以及對應的版本有哪些。
 
-![](https://i.imgur.com/VjV82DY.png)
+點選右上方的 Add Catalog 就可以看到如下的設定視窗
 
-點選該 kubernetes-dashboard 後進入到新版的安裝設定介面，該畫面中相對於舊版的 Catalog 來說畫面更為簡潔有力。
-畫面中，最上方包含了 App 的名稱，該使用的 Helm Chart 版本，範例使用了 4.5.0。
+![](https://i.imgur.com/4P3BB9d.png)
 
-接者下方則是安裝的 namespace ，這些選擇都與舊版的介面差不多。
-最下方則列出不同的類別，包含
-1. Values
-2. Helm README
-3. Helm Deploy Options
+該畫面中我們填入上述資訊，如果是 Git 專案的位置還可以輸入 branch，但是因為我們是 Helm Server，所以 Branch 的資訊就沒有設定的意義。
+最後順便設定該 Helm Server 是基於 Helm v3 來使用的。
 
-![](https://i.imgur.com/xYVwLN0.png)
+![](https://i.imgur.com/1Bcgq2s.png)
 
-Rancher 新版 App 捨棄了舊版 Answer 的叫法，同時也完全使用 YAML 的格式來設定 values，而不是透過 UI 一行一行慢慢設定。
+創建完畢後就意味 Rancher 已經可以透過這個 Catalog 去得到遠方當前有哪些 應用程式以及擁有哪些版本，但是這並不代表 Rancher 已經知道。
+一種做法就是等 Rancher 預設的同步機制慢慢等或是直接點選 Refresh 讓 Rancher 直接同步該 Catalog 的資訊。
 
-註: 事實上舊版的 UI 的設定方式其實有滿多問題，某些情況還真的不能設定，透過檔案還是相對簡單與方便。
+一種常見的情境就是你的 CI/CD 流程更新了 Helm Chart，推進一個版本，結果 Rancher 還不知道，這時候就可以 refresh 強制更新。
 
-![](https://i.imgur.com/ErbjAsP.png)
+創建 Catalog 完畢後，下一件事情就是要從 Catalog 中找到一個可以用的應用程式，並且選擇該應用程式的版本，如果是 Helm 描述的應用程式還可以透過 values.yaml 的概念去客製化應用程式。
 
-下面的 Helm Deploy Options 有不同的部署選項，譬如
-1. 要不要執行 Helm Hooks
-2. 部署 Helm 時要不要設定 Timeout，多久的時間沒有成功部署就會判定失敗
+應用程式的安裝是屬於最底層架構的，因此是跟 Project 綁定，從左上方切換到之前創立的 myApplication project，並且切換到到畫面上方的 app 頁面中。
 
-![](https://i.imgur.com/kcqmbAO.png)
+![](https://i.imgur.com/kti8npL.png)
 
-一切設定完畢後就可以開始安裝，安裝畫面跟 Monitoring 的經驗類似，都會彈出一個 Terminal 畫面來顯示安裝過程。
-畫面最下方則是顯示了到底系統是使用什麼指令來安裝 Helm Chart，安裝完畢可以用左上的按鈕離開畫面。
+該頁面的右上方有兩個按鈕，其中 Manage Catalog 會切回到該專案專屬的 Catalog 頁面，因此 Catalog 本身實際上有三種權限，(Global, Cluster, Project).
+右邊的 Launch 意味者要創立一個應用程式。
+點進去後會看到如下方的圖
 
-![](https://i.imgur.com/Or73FTW.png)
+![](https://i.imgur.com/WjgFzob.png)
 
-接者移動到 Installed Charts 可以找到前述安裝的 App，外面提供的 Active 資源數量則是代表所有 Kubernetes 的資源，不單單只是舊版所顯示的 Pod 而已。
+圖中最上方顯示的就是前述創立的 Catalog，該 Helm Server 中只有一個應用程式名為 kubernetes-dashboard
 
-![](https://i.imgur.com/ramH92u.png)
+下面則是一些系統預設的 catalog，譬如 helm3-library，該 helm server 中則有非常多不同的應用程式。
+其中這些預設提供的 helm chart 還會被標上 partner 的字樣。
 
+點選 kubernetes-dashboard 後就會進入到設定該應用程式的畫面。
 
-新版跟舊版的 App 最大的差異我認為就是 Endpoint 的顯示，舊版的 Catalog 會很好心地將 Endpoint 呈現出來讓使用者可以輕鬆存取這些服務，但是新版卻不會。
-要注意的是這些存取實際上是透過 Kubernetes API 去轉發的，所以其實這項功能並不需要 Rancher 特別幫你的應用程式處理什麼，因此如果知道相關的規則，還是可以透過自行撰寫 URL 來存取相關服務網頁，如下。
+![](https://i.imgur.com/cDCOpE9.png)
 
-![](https://i.imgur.com/nLtaHki.png)
-![](https://i.imgur.com/IOfNyCX.png)
+畫面上會先根據 Helm Chart 本身的描述設定去介紹該 Helm Charts 的使用方式
+
+![](https://i.imgur.com/qSfk7na.png)
 
 
-透過 UI 觀察新版應用程式後，接下來就示範如何透過 Terraform 來管理這種新版本的 Application。
+接下來就要針對該應用程式去設定，該設定包含了
+1. 該應用程式安裝的名稱
+2. 該 Helm Chart 要用什麼版本，範例中選擇了 4.5.0
+3. 該服務要安裝到哪個 Kubernetes namespace 中
+4. 最下面稱為 Answer 的概念其實就是 Helm Chart values，這邊可以透過 key/value 的方式一個一個輸入，或是使用 Edit as YAML 直接輸入都可以
 
-Rancher 於 Terraform 中的實作是將 Catalog 與 App 的概念分開，新的概念都會補上 _v2 於相關的資源類型後面，譬如
-catalog_v2, app_v2。
+預設情況下我們不進行任何調整，然後直接安裝即可。
 
-這個範例中的作法跟前述一樣
-1. 取得 project 的 ID(此處省略)
-2. 透過 catalog_v2 創造 Helm Repo
-3. 創造要使用的 namespace
-4. 接者使用 app_v2 創造 App
+![](https://i.imgur.com/kIoCMfe.png)
 
-Terraform 的程式碼非常簡單，如下
-```bash
-resource "rancher2_catalog_v2" "dashboard-global-app" {
-  name = "dashboard-terraform"
-  cluster_id = "c-z8j6q"
-  url = "https://kubernetes.github.io/dashboard/"
+安裝完畢後就可以於外面的 App 頁面看到應用程式的樣子，其包含了
+1. 應用程式的名稱
+2. 當前使用版本，如果有新版則會提示可以更新
+3. 狀態是否正常
+4. 有多少運行的 Pod
+5. 是否有透過 service 需要被外部存取的服務
+
+點選該名稱可以切換到更詳細的列表去看看到底該應用程式包含的 Kubernetes 資源狀態，譬如 Deployment, Service, Configmap 等
+
+![](https://i.imgur.com/jdfBeZb.png)
+
+如果該資源有透過 Service 提供存取的話， Rancher 會自動的幫該物件創建一個 Endpoint，就如同 Grafana/Monitoring 那樣，可以使用 API Server 的轉發來往內部存取。
+譬如途中可以看到有產生一個 Endpoint，該位置就是基於 Rancher 的位置後面補上 cluster/namespace/service 等相關資訊來進行處理。
+
+![](https://i.imgur.com/UCZbXaP.png)
+
+這類型的資訊也會於最外層的 App 介面中直接呈現，所以如果直接點選的話就可以很順利地打該 Kubernetes Dashboard 這個應用程式。
+
+![](https://i.imgur.com/tlpRoeb.png)
+![](https://i.imgur.com/z7yQGtn.png)
+
+最後也可以透過 Kubectl 等工具觀察一下目標 namespace 是否有相關的資源，可以看到有 deployment/service 等資源
+
+![](https://i.imgur.com/j36WdZv.png)
+
+透過 Rancher Catalog 的機制就可以使用 Rancher 的介面來管理與存取這些服務，使用上會稍微簡單一些。既然都可以透過 UI 點選那就有很大的機會可以透過 Terraform 來實現上述的操作。
+
+接下來示範如何透過 Terraform 來完成上述的所有操作，整個操作會分成幾個步驟
+1. 先透過 data 資料取得已經創立的 Project ID
+2. 創立 Catalog
+3. 創立 Namespace
+4. 創立 App
+
+```
+data "rancher2_project" "system" {
+    cluster_id = "c-z8j6q"
+    name = "myApplication"
 }
-resource "rancher2_namespace" "dashboard-app" {
-  name = "dashboard-terraform-app"
+resource "rancher2_catalog" "dashboard-global" {
+  name = "dashboard-terraform"
+  url = "https://kubernetes.github.io/dashboard/"
+  version = "helm_v3"
+}
+resource "rancher2_namespace" "dashboard" {
+  name = "dashboard-terraform"
   project_id = data.rancher2_project.system.id
 }
-resource "rancher2_app_v2" "dashboard-app" {
-  cluster_id = "c-z8j6q"
-  name = "k8s-dashboard-app-terraform"
-  namespace = rancher2_namespace.dashboard-app.id
-  repo_name = "dashboard-terraform"
-  chart_name = "kubernetes-dashboard"
-  chart_version = "4.5.0"
-  depends_on       = [rancher2_namespace.dashboard-app, rancher2_catalog_v2.dashboard-global-app]
+resource "rancher2_app" "dashboard" {
+  catalog_name = "dashboard-terraform"
+  name = "dashboard-terraform"
+  project_id = data.rancher2_project.system.id
+  template_name = "kubernetes-dashboard"
+  template_version = "4.5.0"
+  target_namespace = rancher2_namespace.dashboard.id
+  depends_on       = [rancher2_namespace.dashboard, ncher2_catalog.dashboard-global]
 }
 ```
 
-其實透過觀察 v2 版本的 API 就可以觀察出來 v2 的改動很多，譬如
-1. catalog_v2 (Helm Repo) 移除了關於 Scope 的選項，現在所有的 Helm Repo 都是以 Cluster 為單位，不再細分 Global, Cluster, Project.
-2. app_v2 (App) 安裝部分差異最多，特別是 Key 的部分跟貼近 Helm Chart 使用的名詞，使用上會更容易理解每個名詞的使用。
-譬如使用 chart_name, chart_version 取代過往的 template, template_version，同時使用 repo_name 取代 catalog_name。
-不過如果都要使用 repo_name 了，其實直接捨棄 catalog_v2 直接創造一個新的物件 helm_repo 我認為會更佳直覺一些。
+上述做的事情基本上跟 UI 是完全一樣，創造一個 Catalog，輸入對應的 URL 並且指名為 Helm v3 的版本。
+然後接者創立 Namespace，因為使用 namespace，所以要先利用前述的 data 取得目標 project 的 ID，這樣就可以把這個 namespace 掛到特定的 project 底下。
 
-另外 App 移除了對於 Project 的使用，反而是跟 Cluster 有關，變成 App 都是以 Cluster 為基本單位。
+最後透過 catalog 名稱, Template 的名稱與版本來創造 App。
+準備完畢後透過 Terraform Apply 就可以於網頁看到 App 被創造完畢了。
 
-當 Terraform 順利執行後，就可以於 App 頁面觀察到前述描述的應用程式被順利的部署起來了，如下圖。
+![](https://i.imgur.com/7br0h0p.png)
 
-![](https://i.imgur.com/zDs4sSD.png)
-
-到這邊可能會感覺到有點混淆，似乎使用 Cluster Explorer 就再也沒有 Project 的概念了，因此我認為 Rancher v2.6 後續還有很多東西要等，短時間內 Cluster Explorer 沒有辦法完全取代 Cluster Manager 的介面操作，但是部分功能 (Monitoring) 又已經完全轉移到 Cluster Explorer，這會造就管理者可能會兩個功能 (Cluster Explorer/Manager) 都會各自使用一部分的功能。
-
-期許 Rancher 能夠將這些概念都同步過去才有辦法真正的移除 Cluster Manager，或是更可以直接的說過往的某些概念於新版後都不再需要。
+透過 Terraform 的整合，其實可以更有效率的用 CI/CD 系統來管理 Rancher 上的應用程式，如果應用程式本身需要透過 Helm 來進行客製化，這部分也都可以透過 Terraform 內的參數來達成，所以可以更容易的來管理 K8s 內的應用程式，有任何需求想要離開時，就修改 Terraform 上的設定，然後部署即可。

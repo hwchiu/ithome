@@ -1,5 +1,5 @@
-Day 19 - 初探 GitOps 的概念
-=========================
+Day 19 - Rancher App(v2.5) 介紹
+==============================
 
 本文將於賽後同步刊登於筆者[部落格](https://hwchiu.com/)
 
@@ -11,75 +11,128 @@ Day 19 - 初探 GitOps 的概念
 
 # 前言
 
-前述文章探討了應用程式部署的基本思路，從 Rancher 管理的叢集出發有至少三種不同的部署方式，分別為
-1. 直接取得 Kubeconfig 獲得對 Kubernetes 叢集操作的權限
-2. 使用 Rancher 內的應用程式機制(Catalog or App & Marketplace) 來安，並可透過 Terraform 來達到 Infrastructure as Code 的狀態。
-3. 使用 GitOps 的方式來管理 Kubernetes  應用程式
+前篇文章介紹了 Rancher(v2.0 ~ v2.4) 中主打的應用程式管理系統， Catalog，所有的 Catalog 都必須要於 Cluster Manager 的介面中去管理。
 
-本篇文章開始將探討何謂 GitOps 以及 GitOps 能夠帶來的好處，並且最後將基於 Rancher FLeet 去進行一系列 GitOps 解決方案的
-示範。
+而 Rancher v2.5 開始主打 Cluster Explorer 的介面，該介面中又推行了另外一套應用程式管理系統，稱為 App & Marketplace。
 
-# GitOps
+事實上前述的章節就已經有透過這個新的系統來安裝 Monitoring 的相關資源，因此現在 Rancher 都已經使用這個新的機制來提供各種整合服務，因此後續的新功能與維護也都會基於這個新的機制。
 
-就如同 DevOps 是由 DEV + OPS 兩種概念結合而成， GitOps 的原意來自於 Git 以及 OPS，目的是希望以 Git 上的資料為基底去驅動 Ops 相關的操作。
+使用上我認為兩者還是有些差異，因此對於一個 Rancher 的使用者來說最好兩者都有碰過，稍微理解一下其之間的差異，這樣使用上會更有能力去判斷到底要使用哪一種。
 
-該詞源自於 2017 年由 Weave Works 所提出，GitOps 本身並沒有一個非常標準的定義與實作方式，就如同 DevOps 的文化一樣， 不同人使用 GitOps 的方式都不同，但是基本上都會遵循一個大致上的文化。
+# Rancher App
+新版的應用程式架構基本上跟前述的沒有不同，不過名詞上整個大改，相關名詞變得與 Helm 生態系更佳貼近，譬如舊版使用 Catalog 來描述去哪邊抓取 Helm 相關的應用程式，新版本則是直接貼切的稱為 Helm Repo。
 
-GitOps 的精神就是以 Git 作為唯一的資料來源，所有的應用程式部署都只能依賴這份 Git 上內容去變化。
-基於這種精神，下列行為都希望盡量減少甚至避免。
-1. 直接透過 KUBECONNFIG 對叢集直接使用 Helm/Kubectl 去進行操作
-2. 透過其他機制(Rancher Catalog/App) 去對叢集進行應用程式的管理
+Cluster Explorer 的狀態下，左上方點選到 Apps & Marketplace 就可以進入到新版的系統架構，
 
-當 Git 作為一個唯一的資料來源時，整個部署可以帶來下列的好處
-1. Git 本身的管理控制提供了應用程式的稽核機制，透過 Git 機制可以知道誰於什麼時間點什麼時間點帶來了什麼樣的改變。
-2. 需要退版的時候，可以使用 Git Revert 的方式來退版 Git 內容，因此應用程式也會退版
-3. 可以透過 Git 的方式(Branch, tag) 等本身機制來管理不同環境的應用程式
-4. 由於 Git 本身都會使用 Pull Request/Git Review 等機制來管理程式碼管理，因此該機制可以套用到應用程式管理上。
+該架構中左方有三個類別，其中第二個 Charts Repositories 就是新版的 Catalog，畫面如下。
 
-這邊要注意的是， GitOps 本身的並沒有特別限制只能使用於 Kubernetes 環境之中，只是當初 Weave work 講出這名詞時是基於 Kubernetes 的環境來探討，因此後續比較多的解決方案也都是跟 Kubernetes 有關，但是這並不代表 GitOps 只能使用於 Kubernetes 內，任何的使用環境只要有基於 Git/Ops 的理念，基本上都可以想辦法實作 GitOps.
+![](https://i.imgur.com/vxscc1f.png)
 
-但是 GitOps 到底要如何實作? 要如何將 Git 的更動給同步到應用程式的部署則沒有任何規範與標準，目前主要有兩種主流，以下都是一種示範介紹，實務上實作時可以有更多不同的變化。
-1. 專屬 CI/CD 流水線
-2. 獨立 Controller
+預設系統上有兩個 Chart Repo，其中之前安裝的 Monitoring 就是來自於這邊。
+接者點選右上方的 Create 就會看到新版的創立畫面
 
-接下來以 Kubernetes 為背景來探討一下可能的解法。
+![](https://i.imgur.com/spu6lFs.png)
 
-# 專屬 CI/CD 流水線
+新版本的創建畫面更加簡潔與簡單，首先可以透過 target 來選擇到底要使用 Git 還是 HTTP 來存取，針對 Private Helm Repo 這次則提供了兩種驗證方式，譬如 SSH Key 與 HTTP Basic 兩種方式。
 
-這種架構下會創立一個專屬的 CI/CD Pipeline, 該 Pipeline 的觸發條件就是 Git 專案發生變化之時。
-所以 Pipeline 中會去抓取觸發當下的 Git 內容，接者從該內容中判別當前有哪些檔案被修改，從這些被修改的檔案去判別是哪些應用程式有修改，接者針對被影響的應用程式去進行更新。
+創造完畢後就可以於系統上看到新建立的 Helm Repo，系統預設的兩個 Helm Repo 都是基於 Git 去處理，而本篇文章新創立的則是 HTTP。
 
-以 Kubernetes 來說，通常就是指 CI/CD Pipeline 中要先獲得 KUBECONFIG 的權限，如果使用的是 Rancher，則可以使用 Rancher API Token。
-當系統要更新應用程式時，就可以透過這些權限將 Kubernetes 內的應用程式進行更新。
+![](https://i.imgur.com/amfHMyp.png)
 
-這種架構基本上跟傳統大家熟悉的 CD 流程自動化看起來沒有什麼不同，不過 GitOps 會更加強調以 Git 為本，所以會希望只有該 CI/CD Pipeline 能夠有機會去更新應用程式，這也意味任何使用者直接透過 KUBECONFIG 對 Kubernetes 操作這件事情是不被允許的。
+有了 Helm Repo 後，下一步就是要創造應用程式，切換到 Charts 的介面就可以看到如下的畫面。
 
-所以 GitOps 不單單是一個工具與解決方案，也是一個文化。
+![](https://i.imgur.com/L8uL7wj.png)
 
-# 獨立 Controller
-第二個解決方式是目前 Kubernetes 生態中的常見作法，該作法必須要於 Kubernetes 內部署一個 Controller，該 Controller 本身基於一種狀態檢查的無限迴圈去運行，一個簡單的運作邏輯如下。
-1. 檢查目標 Git 專案內的檔案狀態
-2. 檢查當前 Kubernetes 叢集內的應用程式狀態
-3. 如果(2)的狀態與(1)不同，就更新叢集內的狀態讓其與(1)相同
+畫面中上方顯示了目前擁有的 Helm Repo 有哪些，這邊可以透過勾選的方式來過濾想要顯示的 Helm Repo
+只有單純勾選 dashboard 後就可以看到 kubernetes-dashboard 這個 Helm Chart。
 
-一句話來說的話，該 Controller 就是用來確保 Git 專案所描述的狀態與目標環境的現行狀態一致。
+![](https://i.imgur.com/VjV82DY.png)
 
-為了完成上述流程，該 Controller 需要有一些相關權限
-1. 能夠讀取 Git 專案的權限
-2. 能夠讀取 Kubernetes 內部狀態的權限
-3. 能夠更新 Kubernetes 應用程式的權限
+點選該 kubernetes-dashboard 後進入到新版的安裝設定介面，該畫面中相對於舊版的 Catalog 來說畫面更為簡潔有力。
+畫面中，最上方包含了 App 的名稱，該使用的 Helm Chart 版本，範例使用了 4.5.0。
 
-由於該 Controller 會部署到 Kubernetes 內部，所以(2+3)的權限問題不會太困難，可以透過 RBAC 下的 Service Account 來處理。
-(1)的部分如果是公開 Git 專案則沒有太多問題，私人的話就要有存取的 Credential 資訊。
+接者下方則是安裝的 namespace ，這些選擇都與舊版的介面差不多。
+最下方則列出不同的類別，包含
+1. Values
+2. Helm README
+3. Helm Deploy Options
 
-以下是一個基於 Controller 架構的部署示範
-1) 先行部署 Controller 到 Kubernetes 叢集內
-2) 設定目標 Git 專案與目標 k8s 叢集/namespace 等資訊。
-3) 開發者針對 Git 專案進行修改。
-4) Controller 偵測到 Git 專案有變動
-5) 獲取目前 Git 狀態
-6) 獲取目前 叢集內的應用程式狀態
-7) 如果(5),(6)不一樣，則將(5)的內容更新到叢集中
-8) 反覆執行 (4~7) 步驟。
+![](https://i.imgur.com/xYVwLN0.png)
 
-到這邊為止探討了關於 GitOps 的基本概念，接下來就會數個知名的開源專案去進行探討
+Rancher 新版 App 捨棄了舊版 Answer 的叫法，同時也完全使用 YAML 的格式來設定 values，而不是透過 UI 一行一行慢慢設定。
+
+註: 事實上舊版的 UI 的設定方式其實有滿多問題，某些情況還真的不能設定，透過檔案還是相對簡單與方便。
+
+![](https://i.imgur.com/ErbjAsP.png)
+
+下面的 Helm Deploy Options 有不同的部署選項，譬如
+1. 要不要執行 Helm Hooks
+2. 部署 Helm 時要不要設定 Timeout，多久的時間沒有成功部署就會判定失敗
+
+![](https://i.imgur.com/kcqmbAO.png)
+
+一切設定完畢後就可以開始安裝，安裝畫面跟 Monitoring 的經驗類似，都會彈出一個 Terminal 畫面來顯示安裝過程。
+畫面最下方則是顯示了到底系統是使用什麼指令來安裝 Helm Chart，安裝完畢可以用左上的按鈕離開畫面。
+
+![](https://i.imgur.com/Or73FTW.png)
+
+接者移動到 Installed Charts 可以找到前述安裝的 App，外面提供的 Active 資源數量則是代表所有 Kubernetes 的資源，不單單只是舊版所顯示的 Pod 而已。
+
+![](https://i.imgur.com/ramH92u.png)
+
+
+新版跟舊版的 App 最大的差異我認為就是 Endpoint 的顯示，舊版的 Catalog 會很好心地將 Endpoint 呈現出來讓使用者可以輕鬆存取這些服務，但是新版卻不會。
+要注意的是這些存取實際上是透過 Kubernetes API 去轉發的，所以其實這項功能並不需要 Rancher 特別幫你的應用程式處理什麼，因此如果知道相關的規則，還是可以透過自行撰寫 URL 來存取相關服務網頁，如下。
+
+![](https://i.imgur.com/nLtaHki.png)
+![](https://i.imgur.com/IOfNyCX.png)
+
+
+透過 UI 觀察新版應用程式後，接下來就示範如何透過 Terraform 來管理這種新版本的 Application。
+
+Rancher 於 Terraform 中的實作是將 Catalog 與 App 的概念分開，新的概念都會補上 _v2 於相關的資源類型後面，譬如
+catalog_v2, app_v2。
+
+這個範例中的作法跟前述一樣
+1. 取得 project 的 ID(此處省略)
+2. 透過 catalog_v2 創造 Helm Repo
+3. 創造要使用的 namespace
+4. 接者使用 app_v2 創造 App
+
+Terraform 的程式碼非常簡單，如下
+```bash
+resource "rancher2_catalog_v2" "dashboard-global-app" {
+  name = "dashboard-terraform"
+  cluster_id = "c-z8j6q"
+  url = "https://kubernetes.github.io/dashboard/"
+}
+resource "rancher2_namespace" "dashboard-app" {
+  name = "dashboard-terraform-app"
+  project_id = data.rancher2_project.system.id
+}
+resource "rancher2_app_v2" "dashboard-app" {
+  cluster_id = "c-z8j6q"
+  name = "k8s-dashboard-app-terraform"
+  namespace = rancher2_namespace.dashboard-app.id
+  repo_name = "dashboard-terraform"
+  chart_name = "kubernetes-dashboard"
+  chart_version = "4.5.0"
+  depends_on       = [rancher2_namespace.dashboard-app, rancher2_catalog_v2.dashboard-global-app]
+}
+```
+
+其實透過觀察 v2 版本的 API 就可以觀察出來 v2 的改動很多，譬如
+1. catalog_v2 (Helm Repo) 移除了關於 Scope 的選項，現在所有的 Helm Repo 都是以 Cluster 為單位，不再細分 Global, Cluster, Project.
+2. app_v2 (App) 安裝部分差異最多，特別是 Key 的部分跟貼近 Helm Chart 使用的名詞，使用上會更容易理解每個名詞的使用。
+譬如使用 chart_name, chart_version 取代過往的 template, template_version，同時使用 repo_name 取代 catalog_name。
+不過如果都要使用 repo_name 了，其實直接捨棄 catalog_v2 直接創造一個新的物件 helm_repo 我認為會更佳直覺一些。
+
+另外 App 移除了對於 Project 的使用，反而是跟 Cluster 有關，變成 App 都是以 Cluster 為基本單位。
+
+當 Terraform 順利執行後，就可以於 App 頁面觀察到前述描述的應用程式被順利的部署起來了，如下圖。
+
+![](https://i.imgur.com/zDs4sSD.png)
+
+到這邊可能會感覺到有點混淆，似乎使用 Cluster Explorer 就再也沒有 Project 的概念了，因此我認為 Rancher v2.6 後續還有很多東西要等，短時間內 Cluster Explorer 沒有辦法完全取代 Cluster Manager 的介面操作，但是部分功能 (Monitoring) 又已經完全轉移到 Cluster Explorer，這會造就管理者可能會兩個功能 (Cluster Explorer/Manager) 都會各自使用一部分的功能。
+
+期許 Rancher 能夠將這些概念都同步過去才有辦法真正的移除 Cluster Manager，或是更可以直接的說過往的某些概念於新版後都不再需要。
