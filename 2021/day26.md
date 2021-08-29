@@ -1,5 +1,5 @@
-Day 26 - Rancher Fleet 客製化應用程式部署(一)
-=========================================
+Day 26 - Rancher Fleet Kubernetes 應用程式部署
+============================================
 
 本文將於賽後同步刊登於筆者[部落格](https://hwchiu.com/)
 
@@ -167,3 +167,5 @@ it 叢集除了 dev 叢集的資源外，還多了 deployment B 也就是 redis-
 qa 叢集則最完整，擁有 Deployment(A,B) 以及 Service (A,B)
 
 ![](https://i.imgur.com/BX6Pu8u.png)
+
+下篇文章將針對 Kustomize 的範例介紹

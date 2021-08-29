@@ -113,5 +113,6 @@
         * [Fleet 環境架設與介紹][2021/day23.md]
         * [Fleet 玩轉第一個 GitOps][2021/day24.md]
         * [Fleet.yaml 檔案探討][2021/day25.md]
-        * [Fleet 客製化應用程式部署(一)][2021/day26.md]
-        * [Fleet 客製化應用程式部署(二)][2021/day27.md]
+        * [Fleet Kubernetes 應用程式部署][2021/day26.md]
+        * [Fleet Kustomize 應用程式部署][2021/day27.md]
+        * [Fleet Helm 應用程式部署][2021/day28.md]
