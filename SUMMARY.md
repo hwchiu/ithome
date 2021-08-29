@@ -116,3 +116,4 @@
         * [Fleet Kubernetes 應用程式部署][2021/day26.md]
         * [Fleet Kustomize 應用程式部署][2021/day27.md]
         * [Fleet Helm 應用程式部署][2021/day28.md]
+        * [Fleet Helm + Kustomize 應用程式部署][2021/day29.md]
