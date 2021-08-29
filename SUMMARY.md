@@ -114,3 +114,4 @@
         * [Fleet 玩轉第一個 GitOps][2021/day24.md]
         * [Fleet.yaml 檔案探討][2021/day25.md]
         * [Fleet 客製化應用程式部署(一)][2021/day26.md]
+        * [Fleet 客製化應用程式部署(二)][2021/day27.md]
