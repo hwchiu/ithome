@@ -1,0 +1,2102 @@
+
+<!DOCTYPE HTML>
+<html lang="" >
+    <head>
+        <meta charset="UTF-8">
+        <meta content="text/html; charset=utf-8" http-equiv="Content-Type">
+        <title>Device Plugin - Kubernetes · GitBook</title>
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        <meta name="description" content="">
+        <meta name="generator" content="GitBook 3.2.3">
+        
+        
+        
+    
+    <link rel="stylesheet" href="../../gitbook/style.css">
+
+    
+            
+                
+                <link rel="stylesheet" href="../../gitbook/gitbook-plugin-highlight/website.css">
+                
+            
+                
+                <link rel="stylesheet" href="../../gitbook/gitbook-plugin-search/search.css">
+                
+            
+                
+                <link rel="stylesheet" href="../../gitbook/gitbook-plugin-fontsettings/website.css">
+                
+            
+        
+
+    
+
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+
+        
+    
+    
+    <meta name="HandheldFriendly" content="true"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <link rel="apple-touch-icon-precomposed" sizes="152x152" href="../../gitbook/images/apple-touch-icon-precomposed-152.png">
+    <link rel="shortcut icon" href="../../gitbook/images/favicon.ico" type="image/x-icon">
+
+    
+    <link rel="next" href="day25.html" />
+    
+    
+    <link rel="prev" href="day23.html" />
+    
+
+    </head>
+    <body>
+        
+<div class="book">
+    <div class="book-summary">
+        
+            
+<div id="book-search-input" role="search">
+    <input type="text" placeholder="Type to search" />
+</div>
+
+            
+                <nav role="navigation">
+                
+
+
+<ul class="summary">
+    
+    
+
+    
+
+    
+        
+        
+    
+        <li class="chapter " data-level="1.1" data-path="../../">
+            
+                <a href="../../">
+            
+                    
+                    Introduction
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.2" >
+            
+                <span>
+            
+                    
+                    2019 鐵人賽
+            
+                </span>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="1.2.1" data-path="../overview/day1.html">
+            
+                <a href="../overview/day1.html">
+            
+                    
+                    Kubernetes 設計原理
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.2.2" >
+            
+                <span>
+            
+                    
+                    Container 介紹
+            
+                </span>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="1.2.2.1" data-path="../container/day2.html">
+            
+                <a href="../container/day2.html">
+            
+                    
+                    淺談 Container 實現原理- 上
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.2.2.2" data-path="../container/day3.html">
+            
+                <a href="../container/day3.html">
+            
+                    
+                    淺談 Container 實現原理- 中
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.2.2.3" data-path="../container/day4.html">
+            
+                <a href="../container/day4.html">
+            
+                    
+                    淺談 Container 實現原理- 下
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+        <li class="chapter " data-level="1.2.3" >
+            
+                <span>
+            
+                    
+                    Container Runtime Interface(CRI)
+            
+                </span>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="1.2.3.1" data-path="../runtime/day5.html">
+            
+                <a href="../runtime/day5.html">
+            
+                    
+                    Kubernetes & CRI (I)
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.2.3.2" data-path="../runtime/day6.html">
+            
+                <a href="../runtime/day6.html">
+            
+                    
+                    Kubernetes & CRI (II)
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.2.3.3" data-path="../runtime/day7.html">
+            
+                <a href="../runtime/day7.html">
+            
+                    
+                    Container Runtime - CRI-O
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.2.3.4" data-path="../runtime/day8.html">
+            
+                <a href="../runtime/day8.html">
+            
+                    
+                    Container Runtime - Security Container
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.2.3.5" data-path="../runtime/day9.html">
+            
+                <a href="../runtime/day9.html">
+            
+                    
+                    Container Runtime - Virtual Machine
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+        <li class="chapter " data-level="1.2.4" >
+            
+                <span>
+            
+                    
+                    Container Network Interface(CNI)
+            
+                </span>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="1.2.4.1" data-path="../network/day10.html">
+            
+                <a href="../network/day10.html">
+            
+                    
+                    Container Network Interface 介紹
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.2.4.2" data-path="../network/day11.html">
+            
+                <a href="../network/day11.html">
+            
+                    
+                    kubernetes 與 CNI 的互動
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.2.4.3" data-path="../network/day12.html">
+            
+                <a href="../network/day12.html">
+            
+                    
+                    使用 golang 開發第一個 CNI 程式
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.2.4.4" data-path="../network/day13.html">
+            
+                <a href="../network/day13.html">
+            
+                    
+                    初探 CNI 的 IP 分配問題 (IPAM)
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.2.4.5" data-path="../network/day14.html">
+            
+                <a href="../network/day14.html">
+            
+                    
+                    CNI - Flannel - 安裝設定篇
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.2.4.6" data-path="../network/day15.html">
+            
+                <a href="../network/day15.html">
+            
+                    
+                    CNI - Flannel - IP 管理篇
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.2.4.7" data-path="../network/day16.html">
+            
+                <a href="../network/day16.html">
+            
+                    
+                    CNI - Flannel - VXLAN 封包運作篇
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.2.4.8" data-path="../network/day17.html">
+            
+                <a href="../network/day17.html">
+            
+                    
+                    CNI 閒談
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+        <li class="chapter " data-level="1.2.5" >
+            
+                <span>
+            
+                    
+                    Container Storage Interface(CSI)
+            
+                </span>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="1.2.5.1" data-path="../storage/day18.html">
+            
+                <a href="../storage/day18.html">
+            
+                    
+                    Container Storage Interface 基本介紹
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.2.5.2" data-path="../storage/day19.html">
+            
+                <a href="../storage/day19.html">
+            
+                    
+                    Container Storage Interface 標準介紹
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.2.5.3" data-path="../storage/day20.html">
+            
+                <a href="../storage/day20.html">
+            
+                    
+                    Container Storage Interface 與 kubernetes
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.2.5.4" data-path="../storage/day21.html">
+            
+                <a href="../storage/day21.html">
+            
+                    
+                    Container Storage Interface(CSI) - NFS 初體驗
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.2.5.5" data-path="../storage/day22.html">
+            
+                <a href="../storage/day22.html">
+            
+                    
+                    CSI 雜談
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+        <li class="chapter " data-level="1.2.6" >
+            
+                <span>
+            
+                    
+                    Device Plugin
+            
+                </span>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="1.2.6.1" data-path="day23.html">
+            
+                <a href="day23.html">
+            
+                    
+                    Device Plugin Introduction
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter active" data-level="1.2.6.2" data-path="day24.html">
+            
+                <a href="day24.html">
+            
+                    
+                    Device Plugin - Kubernetes
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.2.6.3" data-path="day25.html">
+            
+                <a href="day25.html">
+            
+                    
+                    RDMA
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.2.6.4" data-path="day26.html">
+            
+                <a href="day26.html">
+            
+                    
+                    SR-IOV
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+        <li class="chapter " data-level="1.2.7" >
+            
+                <span>
+            
+                    
+                    Miscellaneous
+            
+                </span>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="1.2.7.1" data-path="../extension/day27.html">
+            
+                <a href="../extension/day27.html">
+            
+                    
+                    Operator Pattern
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.2.7.2" data-path="../extension/day28.html">
+            
+                <a href="../extension/day28.html">
+            
+                    
+                    Service Catalog
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.2.7.3" data-path="../security/day29.html">
+            
+                <a href="../security/day29.html">
+            
+                    
+                    Security
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+        <li class="chapter " data-level="1.2.8" data-path="../summary/day30.html">
+            
+                <a href="../summary/day30.html">
+            
+                    
+                    總結
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+
+    
+        
+        <li class="divider"></li>
+        
+        
+    
+        <li class="chapter " data-level="2.1" >
+            
+                <span>
+            
+                    
+                    2020 鐵人賽
+            
+                </span>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="2.1.1" data-path="../../2020/overview/day1.html">
+            
+                <a href="../../2020/overview/day1.html">
+            
+                    
+                    DevOps 與 Kubernetes 的愛恨情仇
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="2.1.2" >
+            
+                <span>
+            
+                    
+                    Kubernetes 物件管理與部署
+            
+                </span>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="2.1.2.1" data-path="../../2020/application/day2.html">
+            
+                <a href="../../2020/application/day2.html">
+            
+                    
+                    Kubernetes 物件管理簡介
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="2.1.2.2" data-path="../../2020/application/day3.html">
+            
+                <a href="../../2020/application/day3.html">
+            
+                    
+                    Helm 的介紹
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="2.1.2.3" data-path="../../2020/application/day4.html">
+            
+                <a href="../../2020/application/day4.html">
+            
+                    
+                    Helm 的使用範例
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+        <li class="chapter " data-level="2.1.3" >
+            
+                <span>
+            
+                    
+                    Kubernetes 本地開發之道
+            
+                </span>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="2.1.3.1" data-path="../../2020/local/day5.html">
+            
+                <a href="../../2020/local/day5.html">
+            
+                    
+                    淺談本地部署 Kubernetes 的各類選擇
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="2.1.3.2" data-path="../../2020/local/day6.html">
+            
+                <a href="../../2020/local/day6.html">
+            
+                    
+                    K3D與KIND 的部署示範
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="2.1.3.3" data-path="../../2020/local/day7.html">
+            
+                <a href="../../2020/local/day7.html">
+            
+                    
+                    本地開發 Kubernetes 應用程式
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="2.1.3.4" data-path="../../2020/local/day8.html">
+            
+                <a href="../../2020/local/day8.html">
+            
+                    
+                    Skaffold  本地開發與測試
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+        <li class="chapter " data-level="2.1.4" >
+            
+                <span>
+            
+                    
+                    CI 流水線介紹
+            
+                </span>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="2.1.4.1" data-path="../../2020/ci/day9.html">
+            
+                <a href="../../2020/ci/day9.html">
+            
+                    
+                    Pipeline System 介紹
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="2.1.4.2" data-path="../../2020/ci/day10.html">
+            
+                <a href="../../2020/ci/day10.html">
+            
+                    
+                    CI 與 Kubernetes 的整合
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="2.1.4.3" data-path="../../2020/ci/day11.html">
+            
+                <a href="../../2020/ci/day11.html">
+            
+                    
+                    Kubernetrs 應用測試
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="2.1.4.4" data-path="../../2020/ci/day12.html">
+            
+                <a href="../../2020/ci/day12.html">
+            
+                    
+                    CI Pipeline x Kubernetes 結論
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+        <li class="chapter " data-level="2.1.5" >
+            
+                <span>
+            
+                    
+                    CD 流水線介紹
+            
+                </span>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="2.1.5.1" data-path="../../2020/cd/day13.html">
+            
+                <a href="../../2020/cd/day13.html">
+            
+                    
+                    CD 系統的選擇議題
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="2.1.5.2" data-path="../../2020/cd/day14.html">
+            
+                <a href="../../2020/cd/day14.html">
+            
+                    
+                    CD 與 Kubernetes 的整合
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="2.1.5.3" data-path="../../2020/cd/day15.html">
+            
+                <a href="../../2020/cd/day15.html">
+            
+                    
+                    CD 之 Pull Mode 介紹: Keel
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+        <li class="chapter " data-level="2.1.6" >
+            
+                <span>
+            
+                    
+                    GitOps 的部署概念
+            
+                </span>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="2.1.6.1" data-path="../../2020/gitops/day16.html">
+            
+                <a href="../../2020/gitops/day16.html">
+            
+                    
+                    GitOps 的介紹
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="2.1.6.2" data-path="../../2020/gitops/day17.html">
+            
+                <a href="../../2020/gitops/day17.html">
+            
+                    
+                    GitOps 與 Kubernetes 的整合
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="2.1.6.3" data-path="../../2020/gitops/day18.html">
+            
+                <a href="../../2020/gitops/day18.html">
+            
+                    
+                    GitOps - ArgoCD 介紹
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+        <li class="chapter " data-level="2.1.7" >
+            
+                <span>
+            
+                    
+                    Private Registry
+            
+                </span>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="2.1.7.1" data-path="../../2020/registry/day19.html">
+            
+                <a href="../../2020/registry/day19.html">
+            
+                    
+                    Container Registry 的介紹及需求
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="2.1.7.2" data-path="../../2020/registry/day20.html">
+            
+                <a href="../../2020/registry/day20.html">
+            
+                    
+                    自架 Registry 的方案介紹
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="2.1.7.3" data-path="../../2020/registry/day21.html">
+            
+                <a href="../../2020/registry/day21.html">
+            
+                    
+                    自架 Registry - Harbor
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="2.1.7.4" data-path="../../2020/registry/day22.html">
+            
+                <a href="../../2020/registry/day22.html">
+            
+                    
+                    自架 Registry 與 Kubernetes 的整合
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+        <li class="chapter " data-level="2.1.8" >
+            
+                <span>
+            
+                    
+                    Secret 的議題
+            
+                </span>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="2.1.8.1" data-path="../../2020/secret/day23.html">
+            
+                <a href="../../2020/secret/day23.html">
+            
+                    
+                    Secret 的部署問題與參考解法(上)
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="2.1.8.2" data-path="../../2020/secret/day24.html">
+            
+                <a href="../../2020/secret/day24.html">
+            
+                    
+                    Secret 的部署問題與參考解法(下)
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="2.1.8.3" data-path="../../2020/secret/day25.html">
+            
+                <a href="../../2020/secret/day25.html">
+            
+                    
+                    Secret 使用範例: sealed-secrets
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+        <li class="chapter " data-level="2.1.9" >
+            
+                <span>
+            
+                    
+                    番外篇
+            
+                </span>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="2.1.9.1" data-path="../../2020/plugin/day26.html">
+            
+                <a href="../../2020/plugin/day26.html">
+            
+                    
+                    kubectl plugin 介紹
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="2.1.9.2" data-path="../../2020/plugin/day27.html">
+            
+                <a href="../../2020/plugin/day27.html">
+            
+                    
+                    Kubernetes plugin 範例
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="2.1.9.3" data-path="../../2020/plugin/day28.html">
+            
+                <a href="../../2020/plugin/day28.html">
+            
+                    
+                    Kubernetes 第三方好用工具介紹
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+        <li class="chapter " data-level="2.1.10" data-path="../../2020/summary/day29.html">
+            
+                <a href="../../2020/summary/day29.html">
+            
+                    
+                    Summary
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="2.1.11" data-path="../../2020/summary/day30.md">
+            
+                <span>
+            
+                    
+                    各類資源分享
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+        <li class="chapter " data-level="2.2" >
+            
+                <span>
+            
+                    
+                    2021 鐵人賽
+            
+                </span>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="2.2.1" >
+            
+                <span>
+            
+                    
+                    Rancher 基本知識
+            
+                </span>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="2.2.1.1" data-path="../../2021/day1.html">
+            
+                <a href="../../2021/day1.html">
+            
+                    
+                    淺談 Kubernetes 的架設與管理
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="2.2.1.2" data-path="../../2021/day2.html">
+            
+                <a href="../../2021/day2.html">
+            
+                    
+                    何謂 Rancher
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="2.2.1.3" data-path="../../2021/day3.html">
+            
+                <a href="../../2021/day3.html">
+            
+                    
+                    Rancher 架構與安裝方式介紹
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="2.2.1.4" data-path="../../2021/day4.html">
+            
+                <a href="../../2021/day4.html">
+            
+                    
+                    透過 RKE 架設第一套 Rancher(上)
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="2.2.1.5" data-path="../../2021/day5.html">
+            
+                <a href="../../2021/day5.html">
+            
+                    
+                    透過 RKE 架設第一套 Rancher(下)
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+        <li class="chapter " data-level="2.2.2" >
+            
+                <span>
+            
+                    
+                    Rancher 系統管理指南
+            
+                </span>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="2.2.2.1" data-path="../../2021/day6.html">
+            
+                <a href="../../2021/day6.html">
+            
+                    
+                    系統管理指南 - 使用者登入管理
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="2.2.2.2" data-path="../../2021/day7.html">
+            
+                <a href="../../2021/day7.html">
+            
+                    
+                    系統管理指南 - RKE Template
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+        <li class="chapter " data-level="2.2.3" >
+            
+                <span>
+            
+                    
+                    Rancher 叢集管理指南
+            
+                </span>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="2.2.3.1" data-path="../../2021/day8.html">
+            
+                <a href="../../2021/day8.html">
+            
+                    
+                    架設 K8s(上)
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="2.2.3.2" data-path="../../2021/day9.html">
+            
+                <a href="../../2021/day9.html">
+            
+                    
+                    架設 K8s(下)
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="2.2.3.3" data-path="../../2021/day10.html">
+            
+                <a href="../../2021/day10.html">
+            
+                    
+                    RKE 管理與操作
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="2.2.3.4" data-path="../../2021/day11.html">
+            
+                <a href="../../2021/day11.html">
+            
+                    
+                    Monitoring 介紹
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+        <li class="chapter " data-level="2.2.4" >
+            
+                <span>
+            
+                    
+                    Rancher 專案管理指南
+            
+                </span>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="2.2.4.1" data-path="../../2021/day12.html">
+            
+                <a href="../../2021/day12.html">
+            
+                    
+                    Project 基本概念介紹
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="2.2.4.2" data-path="../../2021/day13.html">
+            
+                <a href="../../2021/day13.html">
+            
+                    
+                    Resource Quota 介紹
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+        <li class="chapter " data-level="2.2.5" >
+            
+                <span>
+            
+                    
+                    Rancher 雜談
+            
+                </span>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="2.2.5.1" data-path="../../2021/day14.html">
+            
+                <a href="../../2021/day14.html">
+            
+                    
+                    其他事項
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="2.2.5.2" data-path="../../2021/day15.html">
+            
+                <a href="../../2021/day15.html">
+            
+                    
+                    Rancher & Infrastructure as Code
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="2.2.5.3" data-path="../../2021/day16.html">
+            
+                <a href="../../2021/day16.html">
+            
+                    
+                    Rancher 指令工具的操作
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+        <li class="chapter " data-level="2.2.6" >
+            
+                <span>
+            
+                    
+                    Rancher 應用程式部署
+            
+                </span>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="2.2.6.1" data-path="../../2021/day17.html">
+            
+                <a href="../../2021/day17.html">
+            
+                    
+                    淺談 Rancher 的應用程式管理
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="2.2.6.2" data-path="../../2021/day18.html">
+            
+                <a href="../../2021/day18.html">
+            
+                    
+                    Rancher Catalog 介紹(v2.0~v2.4)
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="2.2.6.3" data-path="../../2021/day19.html">
+            
+                <a href="../../2021/day19.html">
+            
+                    
+                    Rancher App & Marketplace 介紹(v2.5)
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+        <li class="chapter " data-level="2.2.7" >
+            
+                <span>
+            
+                    
+                    GitOps 部署
+            
+                </span>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="2.2.7.1" data-path="../../2021/day20.html">
+            
+                <a href="../../2021/day20.html">
+            
+                    
+                    淺談 GitOps 
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="2.2.7.2" data-path="../../2021/day21.html">
+            
+                <a href="../../2021/day21.html">
+            
+                    
+                    GitOps 解決方案比較
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="2.2.7.3" data-path="../../2021/day22.html">
+            
+                <a href="../../2021/day22.html">
+            
+                    
+                    Rancher Fleet 介紹
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="2.2.7.4" data-path="../../2021/day23.html">
+            
+                <a href="../../2021/day23.html">
+            
+                    
+                    Fleet 環境架設與介紹
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="2.2.7.5" data-path="../../2021/day24.html">
+            
+                <a href="../../2021/day24.html">
+            
+                    
+                    Fleet 玩轉第一個 GitOps
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="2.2.7.6" data-path="../../2021/day25.html">
+            
+                <a href="../../2021/day25.html">
+            
+                    
+                    Fleet.yaml 檔案探討
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="2.2.7.7" data-path="../../2021/day26.html">
+            
+                <a href="../../2021/day26.html">
+            
+                    
+                    Fleet Kubernetes 應用程式部署
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="2.2.7.8" data-path="../../2021/day27.html">
+            
+                <a href="../../2021/day27.html">
+            
+                    
+                    Fleet Kustomize 應用程式部署
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="2.2.7.9" data-path="../../2021/day28.html">
+            
+                <a href="../../2021/day28.html">
+            
+                    
+                    Fleet Helm 應用程式部署
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="2.2.7.10" data-path="../../2021/day29.html">
+            
+                <a href="../../2021/day29.html">
+            
+                    
+                    Fleet Helm + Kustomize 應用程式部署
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+        <li class="chapter " data-level="2.2.8" data-path="../../2021/day30.html">
+            
+                <a href="../../2021/day30.html">
+            
+                    
+                    Summary
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+
+    
+
+    <li class="divider"></li>
+
+    <li>
+        <a href="https://www.gitbook.com" target="blank" class="gitbook-link">
+            Published with GitBook
+        </a>
+    </li>
+</ul>
+
+
+                </nav>
+            
+        
+    </div>
+
+    <div class="book-body">
+        
+            <div class="body-inner">
+                
+                    
+
+<div class="book-header" role="navigation">
+    
+
+    <!-- Title -->
+    <h1>
+        <i class="fa fa-circle-o-notch fa-spin"></i>
+        <a href="../.." >Device Plugin - Kubernetes</a>
+    </h1>
+</div>
+
+
+
+
+                    <div class="page-wrapper" tabindex="-1" role="main">
+                        <div class="page-inner">
+                            
+<div id="book-search-results">
+    <div class="search-noresults">
+    
+                                <section class="normal markdown-section">
+                                
+                                <h1 id="day24-device-plugin---implementation">[Day24] Device Plugin - Implementation</h1>
+<blockquote>
+<p>&#x672C;&#x6587;&#x540C;&#x6B65;&#x520A;&#x767B;&#x65BC; <a href="https://www.hwchiu.com/k8s-device-plugin-implement.html" target="_blank">hwchiu.com - Device Plugin &#x5BE6;&#x4F5C;</a></p>
+</blockquote>
+<p>2020 IT&#x90A6;&#x5E6B;&#x5FD9;&#x9435;&#x4EBA;&#x8CFD; Kubernetes &#x539F;&#x7406;&#x5206;&#x6790;&#x7CFB;&#x5217;&#x6587;&#x7AE0;</p>
+<ul>
+<li><a href="https://ithelp.ithome.com.tw/articles/10215384/" target="_blank">kubernetes &#x63A2;&#x8A0E;</a></li>
+<li><a href="https://ithelp.ithome.com.tw/articles/10216215" target="_blank">Container &amp; Open Container Initiative</a></li>
+<li><a href="https://ithelp.ithome.com.tw/articles/10218127" target="_blank">Container Runtime Interface</a></li>
+<li><a href="https://ithelp.ithome.com.tw/articles/10220626" target="_blank">Container Network Interface</a></li>
+<li><a href="https://ithelp.ithome.com.tw/articles/10224183" target="_blank">Container Storage Interface</a></li>
+<li>Device Plugin</li>
+</ul>
+<p>&#x6709;&#x8208;&#x8DA3;&#x7684;&#x8B80;&#x8005;&#x6B61;&#x8FCE;&#x5230;&#x6211;&#x7684;&#x7DB2;&#x7AD9; <a href="https://hwchiu.com" target="_blank">https://hwchiu.com</a> &#x95B1;&#x8B80;&#x5176;&#x4ED6;&#x6280;&#x8853;&#x6587;&#x7AE0;&#xFF0C;&#x6709;&#x4EFB;&#x4F55;&#x932F;&#x8AA4;&#x6216;&#x662F;&#x8A0E;&#x8AD6;&#x6B61;&#x8FCE;&#x76F4;&#x63A5;&#x7559;&#x8A00;&#x6216;&#x5BC4;&#x4FE1;&#x8A0E;&#x8AD6;</p>
+<h1 id="&#x524D;&#x8A00;">&#x524D;&#x8A00;</h1>
+<p>&#x524D;&#x7BC7;&#x6587;&#x7AE0;&#x5DF2;&#x7D93;&#x63A2;&#x8A0E;&#x4E86; <strong>device plugin</strong> &#x7684;&#x8A2D;&#x8A08;&#x7406;&#x5FF5;&#x4EE5;&#x53CA;&#x57FA;&#x672C;&#x4F7F;&#x7528;&#x6D41;&#x7A0B;&#xFF0C;&#x800C;&#x672C;&#x7BC7;&#x6587;&#x7AE0;&#x6703;&#x6BD4;&#x8F03;&#x4EE5;&#x6280;&#x8853;&#x6027;&#x7684;&#x89D2;&#x5EA6;&#x4F86;&#x63A2;&#x8A0E;&#x9019;&#x500B;&#x6846;&#x67B6;&#xFF0C;&#x8207;&#x6B64;&#x540C;&#x6642;&#x4E5F;&#x53EF;&#x4EE5;&#x770B;&#x770B;&#x9019;&#x500B;&#x6846;&#x67B6;&#x7684;&#x4F7F;&#x7528;&#x65B9;&#x5F0F;&#x8207;&#x524D;&#x8FF0;&#x7684; <strong>CRI/CNI/CSI</strong> &#x9019;&#x4E9B;&#x6A19;&#x6E96;&#x7684;&#x4ECB;&#x9762;&#x6709;&#x4F55;&#x4E0D;&#x540C;&#x3002;</p>
+<p>&#x524D;&#x8FF0;&#x63D0;&#x5230;&#x904E; <strong>device plugin</strong> &#x6703;&#x900F;&#x904E; <strong>unix socket</strong> &#x8207; <strong>kubelet</strong> &#x9032;&#x884C;&#x6E9D;&#x901A;&#xFF0C;&#x800C;&#x5BE6;&#x969B;&#x4E0A;&#x9019;&#x500B;&#x6E9D;&#x901A;&#x7684;&#x90E8;&#x5206;&#x4E5F;&#x662F;&#x900F;&#x904E; <strong>gRPC + protobuf</strong> &#x63CF;&#x8FF0;&#x7684;&#x4ECB;&#x9762;&#x4F86;&#x9032;&#x884C;&#x6E9D;&#x901A;&#xFF0C;&#x56E0;&#x6B64;&#x5B98;&#x65B9;&#x91DD;&#x5C0D; <strong>device plugin</strong> &#x7684;&#x6846;&#x67B6;&#x6709;&#x5B9A;&#x7FA9;&#x4E86;&#x4E00;&#x7CFB;&#x5217;&#x7684;&#x4ECB;&#x9762;&#xFF0C;&#x6BCF;&#x500B;&#x89E3;&#x6C7A;&#x65B9;&#x6848;&#x90FD;&#x8981;&#x6EFF;&#x8DB3;&#x9019;&#x4E9B;&#x4ECB;&#x9762;&#x624D;&#x53EF;&#x4EE5;&#x9806;&#x5229;&#x5730;&#x8207; <strong>kubelet</strong> &#x6E9D;&#x901A;&#xFF0C;&#x6700;&#x5F8C;&#x9806;&#x5229;&#x7684;&#x65BC; kubernetes &#x5167;&#x904B;&#x4F5C;&#x3002; </p>
+<p>&#x518D;&#x63A2;&#x8A0E; <strong>device plugin</strong> &#x524D;&#xFF0C;&#x5FC5;&#x9808;&#x8981;&#x5148;&#x91DD;&#x5C0D;&#x7248;&#x672C;&#x6709;&#x6240;&#x5171;&#x8B58;&#xFF0C;&#x76EE;&#x524D;&#x7684; <strong>device plugin</strong> &#x672C;&#x8EAB;&#x7684;&#x4ECB;&#x9762;&#x6709;&#x5169;&#x500B;&#x7248;&#x672C;&#xFF0C;&#x5206;&#x5225;&#x662F;</p>
+<ol>
+<li><a href="https://github.com/kubernetes/kubernetes/blob/master/pkg/kubelet/apis/deviceplugin/v1alpha/api.proto" target="_blank">v1alpha</a></li>
+<li><a href="https://github.com/kubernetes/kubernetes/blob/master/pkg/kubelet/apis/deviceplugin/v1beta1/api.proto" target="_blank">v1beta1</a></li>
+</ol>
+<p>&#x672C;&#x6587;&#x63A2;&#x8A0E;&#x7684;&#x4E3B;&#x8981;&#x57FA;&#x65BC; <strong>v1beta1</strong> &#x7684;&#x7248;&#x672C;&#x4F86;&#x63A2;&#x8A0E;&#x3002;</p>
+<h1 id="&#x67B6;&#x69CB;">&#x67B6;&#x69CB;</h1>
+<p>&#x8981;&#x5BE6;&#x73FE;&#x4E00;&#x500B;&#x57FA;&#x65BC; <strong>device plugin</strong> &#x6846;&#x67B6;&#x7684;&#x89E3;&#x6C7A;&#x65B9;&#x6848;&#x975E;&#x5E38;&#x7C21;&#x55AE;&#xFF0C;&#x5C31;&#x662F;&#x5BE6;&#x73FE;&#x4E00;&#x500B;&#x6EFF;&#x8DB3;&#x4ECB;&#x9762;&#x9700;&#x6C42;&#x7684; <strong>gRPC</strong> &#x670D;&#x52D9;&#x5668;&#xFF0C;&#x4ECB;&#x9762;&#x975E;&#x5E38;&#x7C21;&#x55AE;&#xFF0C;&#x53EA;&#x6709;&#x56DB;&#x500B;&#x51FD;&#x5F0F;&#x9700;&#x8981;&#x5BE6;&#x73FE;&#x800C;&#x5DF2;&#xFF0C;&#x5982;&#x4E0B;</p>
+<pre><code class="lang-go=">service DevicePlugin {
+    // GetDevicePluginOptions returns options to be communicated with Device
+        // Manager
+    rpc GetDevicePluginOptions(Empty) returns (DevicePluginOptions) {}
+
+    // ListAndWatch returns a stream of List of Devices
+    // Whenever a Device state change or a Device disappears, ListAndWatch
+    // returns the new list
+    rpc ListAndWatch(Empty) returns (stream ListAndWatchResponse) {}
+
+    // Allocate is called during container creation so that the Device
+    // Plugin can run device specific operations and instruct Kubelet
+    // of the steps to make the Device available in the container
+    rpc Allocate(AllocateRequest) returns (AllocateResponse) {}
+
+        // PreStartContainer is called, if indicated by Device Plugin during registeration phase,
+        // before each container start. Device plugin can run device specific operations
+        // such as reseting the device before making devices available to the container
+    rpc PreStartContainer(PreStartContainerRequest) returns (PreStartContainerResponse) {}
+}
+</code></pre>
+<h2 id="getdevicepluginoptions">GetDevicePluginOptions</h2>
+<p>&#x9019;&#x500B;&#x529F;&#x80FD;&#x6EFF;&#x7C21;&#x55AE;&#x7684;&#xFF0C;&#x5C31;&#x662F;&#x56DE;&#x50B3;&#x4E00;&#x4E9B;&#x95DC;&#x65BC;&#x672C; <strong>device plugin</strong> &#x7684;&#x4E00;&#x4E9B;&#x80FD;&#x529B;&#xFF0C;&#x76EE;&#x524D;&#x5B9A;&#x7FA9;&#x7684;&#x80FD;&#x529B;&#x975E;&#x5E38;&#x5C11;&#xFF0C;&#x53EA;&#x6709;&#x4E00;&#x500B;&#xFF0C;&#x5C31;&#x662F;&#x9700;&#x4E0D;&#x9700;&#x8981;&#x5BB9;&#x5668;&#x555F;&#x52D5;&#x524D;&#x547C;&#x53EB;&#x7684;&#x639B;&#x52FE;&#x9EDE; (pre-start-hook)</p>
+<pre><code class="lang-go=">message DevicePluginOptions {
+        // Indicates if PreStartContainer call is required before each container start
+    bool pre_start_required = 1;
+}
+</code></pre>
+<h2 id="listandwatch">ListAndWatch</h2>
+<p>&#x8A72;&#x51FD;&#x5F0F;&#x6709;&#x5169;&#x500B;&#x76EE;&#x7684;</p>
+<ol>
+<li>&#x8B93; <strong>kubelet</strong> &#x53BB;&#x5F97;&#x77E5;&#x8A72; devices &#x7684;&#x7279;&#x6027;&#x4EE5;&#x53CA;&#x767C;&#x73FE;&#x5230;&#x6709;&#x591A;&#x5C11;&#x500B; <strong>devices</strong></li>
+<li>&#x7531; <strong>device plugin</strong> &#x4E3B;&#x52D5;&#x901A;&#x77E5; <strong>kubelet</strong> &#x4EFB;&#x4F55;&#x95DC;&#x65BC; <strong>device</strong> &#x72C0;&#x614B;&#x7684;&#x6539;&#x8B8A;</li>
+</ol>
+<h2 id="alloocate">Alloocate</h2>
+<p><strong>kubelet</strong> &#x518D;&#x5275;&#x5EFA; <strong>Pod/Container</strong> &#x524D;&#x6703;&#x547C;&#x53EB;&#x8A72;&#x51FD;&#x5F0F;&#x4F86;&#x8655;&#x7406;&#x5982;&#x4F55;&#x4F7F;&#x5F97;&#x8A72; <strong>device</strong> &#x53EF;&#x4EE5;&#x88AB;&#x5BB9;&#x5668;&#x639B;&#x8F09;&#x4F7F;&#x7528;</p>
+<p>&#x6EFF;&#x8DB3;&#x9019;&#x500B;&#x4ECB;&#x9762;&#x7684;&#x61C9;&#x7528;&#x7A0B;&#x5F0F;&#x53EF;&#x900F;&#x904E;&#x4E0B;&#x5217;&#x5176;&#x4E2D;&#x4E4B;&#x4E00;&#x65B9;&#x5F0F;&#x90E8;&#x7F72;&#x5230;&#x7BC0;&#x9EDE;&#x4E0A;</p>
+<ol>
+<li>kubenetes Pod</li>
+<li>&#x5BE6;&#x6A5F;&#x90E8;&#x7F72;</li>
+</ol>
+<p>&#x63A5;&#x8005;&#x900F;&#x904E;&#x8A3B;&#x518A;&#x76F8;&#x95DC;&#x7684;&#x51FD;&#x793A;&#x4E3B;&#x52D5;&#x901A;&#x77E5; <strong>kubelet</strong> &#x9700;&#x8981;&#x8A3B;&#x518A;&#x4E00;&#x500B;&#x5168;&#x65B0;&#x7684; <strong>device plugin</strong>&#xFF0C;&#x5B8C;&#x6210;&#x9019;&#x500B;&#x6B65;&#x9A5F;&#x4E4B;&#x5F8C;&#xFF0C;&#x63A5;&#x4E0B;&#x4F86; <strong>kubelet</strong> &#x5C31;&#x6703;&#x958B;&#x59CB;&#x900F;&#x904E;&#x4E0A;&#x8FF0;&#x7684;&#x5169;&#x500B; <strong>gRPC</strong> &#x4ECB;&#x9762;&#x8207;&#x89E3;&#x6C7A;&#x65B9;&#x6848;&#x4E92;&#x52D5;</p>
+<p>&#x6574;&#x500B;&#x904E;&#x7A0B;&#x53EF;&#x4EE5;&#x7528;&#x4E0B;&#x5716;&#x4F86;&#x89E3;&#x91CB;
+<img src="https://i.imgur.com/94xAHmh.png" alt="">
+&#x4E0A;&#x5716;&#x7BC0;&#x9304;&#x81EA;<a href="https://github.com/kubernetes/community/blob/master/contributors/design-proposals/resource-management/device-plugin.md#device-manager-proposal" target="_blank">Device Plugin Device Manager Proposal
+</a></p>
+<p>&#x9996;&#x5148;&#x4E00;&#x958B;&#x59CB;&#xFF0C;&#x7576; <strong>device plugin</strong> &#x5B89;&#x88DD;&#x5B8C;&#x7562;&#x4E4B;&#x5F8C;&#xFF0C;&#x6703;&#x547C;&#x53EB; <strong>Register</strong> &#x9019;&#x500B;&#x51FD;&#x5F0F;&#xFF0C;&#x800C;&#x9019;&#x500B;&#x51FD;&#x5F0F;&#x6700;&#x91CD;&#x8981;&#x7684;&#x662F;&#x80CC;&#x5F8C;&#x5FC5;&#x9808;&#x8981;&#x900F;&#x904E; <strong>gRPC</strong> &#x7684;&#x65B9;&#x5F0F;&#x8207; <strong>kubelet</strong> &#x6E9D;&#x901A;&#xFF0C;&#x5C07;&#x672C;&#x89E3;&#x6C7A;&#x65B9;&#x6848;&#x7684;&#x76F8;&#x95DC;&#x8CC7;&#x8A0A;&#x90FD;&#x544A;&#x77E5; <strong>kubelet</strong>&#xFF0C;&#x6240;&#x4EE5;&#x53EF;&#x4EE5;&#x6CE8;&#x610F;&#x5230;&#x9019;&#x908A;&#x662F;&#x55AE;&#x7DDA;&#x9032;&#x884C;&#x3002;</p>
+<p>&#x4E00;&#x4F46; <strong>kubetlet</strong> &#x63A5;&#x6536;&#x5230;&#x8A3B;&#x518A;&#x4E4B;&#x5F8C;&#xFF0C;&#x63A5;&#x4E0B;&#x4F86;&#x5C31;&#x6703;&#x958B;&#x59CB;&#x6839;&#x64DA;&#x9700;&#x6C42;&#x9032;&#x884C; <strong>ListWatch</strong> &#x4EE5;&#x53CA; <strong>Alloacte</strong> &#x5169;&#x500B;&#x7684;&#x547C;&#x53EB;&#xFF0C;&#x9019;&#x908A;&#x53EF;&#x4EE5;&#x7279;&#x5225;&#x6CE8;&#x610F;&#x5230;&#x7684;&#x662F; <strong>ListWatch</strong> &#x672C;&#x8EAB;&#x662F;&#x96D9;&#x5411;&#x4E92;&#x52D5;&#x7684;&#xFF0C;&#x610F;&#x5473;&#x8005;&#x5169;&#x908A;&#x90FD;&#x6703;&#x6839;&#x64DA;&#x9700;&#x6C42;&#x4E92;&#x76F8;&#x547C;&#x53EB;&#x5C0D;&#x65B9;&#x7684;&#x51FD;&#x5F0F;&#x3002;&#x800C; <strong>Allocate</strong> &#x5C31;&#x662F;&#x55AE;&#x4E00;&#x65B9;&#x5411;&#x7684;&#x3002;</p>
+<p>&#x672C;&#x5716;&#x7247;&#x96D6;&#x7136;&#x4F86;&#x81EA;&#x5B98;&#x65B9;&#x6587;&#x4EF6;&#xFF0C;&#x4F46;&#x662F;&#x53F3;&#x4E0B;&#x65B9;&#x7684; <strong>Unload Drivers During Pre-Stop Hook</strong> 
+&#x53EA;&#x662F;&#x65E9;&#x671F;&#x8A2D;&#x8A08;&#x6642;&#x7684;&#x767C;&#x60F3;&#xFF0C;&#x7562;&#x7ADF;&#x662F; <strong>Proposal</strong>&#xFF0C;&#x5BE6;&#x969B;&#x4E0A;&#x9019;&#x500B;&#x9EDE;&#x53CD;&#x800C;&#x5F88;&#x96E3;&#x505A;&#xFF0C;&#x8B6C;&#x5982; <strong>Container crash</strong> &#x7B97;&#x4E0D;&#x7B97; <strong>pre-stop</strong>?
+&#x56E0;&#x6B64;&#x4E0D;&#x5982;&#x900F;&#x904E; <strong>pre-start</strong> &#x7684;&#x65B9;&#x3115;&#x78BA;&#x4FDD;&#x6BCF;&#x500B; <strong>container</strong> &#x555F;&#x52D5;&#x524D;&#x90FD;&#x53EF;&#x4EE5;&#x547C;&#x53EB;&#x7684;&#x65B9;&#x5F0F;&#x53BB; <strong>reset</strong> &#x76F8;&#x95DC;&#x8CC7;&#x6E90;&#x3002;</p>
+<h2 id="prestartcontainer">PreStartContainer</h2>
+<p>&#x5982;&#x679C;&#x524D;&#x8FF0;&#x7684; <strong>GetDevicePluginOptions</strong> &#x6709;&#x63CF;&#x8FF0;&#x6709;&#x9019;&#x500B;&#x9700;&#x6C42;&#x7684;&#x8A71;&#xFF0C;&#x90A3;&#x9019;&#x500B;&#x51FD;&#x5F0F;&#x5C31;&#x6703;&#x518D;&#x6709;&#x4EFB;&#x4F55; <strong>Pod</strong> &#x8981;&#x88AB;&#x5275;&#x9020;&#x524D;&#x88AB;&#x547C;&#x53EB;&#xFF0C;&#x53EF;&#x4EE5;&#x7528;&#x4F86;&#x9032;&#x884C;&#x91CD;&#x8A2D; <strong>device</strong> &#x78BA;&#x4FDD;&#x4E0B;&#x500B; <strong>Pod</strong> &#x662F;&#x7528;&#x5230;&#x65B0;&#x7684;&#x3002;</p>
+<h1 id="&#x8A3B;&#x518A;">&#x8A3B;&#x518A;</h1>
+<p>&#x70BA;&#x4E86;&#x80FD;&#x5920;&#x5BE6;&#x73FE;&#x8A3B;&#x518A;&#x529F;&#x80FD;&#xFF0C; <strong>device plugin</strong> &#x4E00;&#x4F46;&#x5275;&#x7ACB;&#x7684;&#x6642;&#x5019;&#x5C31;&#x5FC5;&#x9808;&#x8981;&#x6709;&#x80FD;&#x529B;&#x8DDF; <strong>kubelet</strong> &#x6E9D;&#x901A;&#xFF0C;&#x4E26;&#x4E14;&#x901A;&#x904E; <strong>gRPC</strong> &#x7684;&#x65B9;&#x5F0F;&#x53BB;&#x547C;&#x53EB;&#x8A3B;&#x518A;&#x7684;&#x51FD;&#x5F0F;&#x3002;</p>
+<p>&#x800C;&#x76EE;&#x524D;&#x9019;&#x500B;&#x65B9;&#x5F0F;&#x90FD;&#x6703;&#x900F;&#x904E; <strong>unix socket</strong>  &#x7684;&#x65B9;&#x5F0F;&#x4F86;&#x6EFF;&#x8DB3;&#xFF0C;&#x6B63;&#x5DE7;&#x7684;&#x662F; <strong>kubelet</strong> &#x5C31;&#x6709;&#x914D;&#x7F6E;&#x4E00;&#x500B;&#x9580;&#x7528;&#x4F86;&#x6E9D;&#x901A;&#x7684; <strong>unix socket</strong>&#xFF0C;&#x9810;&#x8A2D;&#x60C5;&#x6CC1;&#x4E0B;&#x90FD;&#x5728; <strong>/var/lib/kubelet/device-plugins/kubelet.sock</strong>&#x3002;
+&#x4E5F;&#x56E0;&#x70BA;&#x9019;&#x500B;&#x539F;&#x56E0;&#xFF0C;&#x4EFB;&#x4F55;&#x5B89;&#x88DD; <strong>device-plugin</strong> &#x7684; <strong>yaml</strong> &#x6A94;&#x6848;&#x5167;&#x90FD;&#x6703;&#x770B;&#x5230;&#x4E0B;&#x5217;&#x7684;&#x8A2D;&#x5B9A;</p>
+<pre><code class="lang-yaml=">...
+        volumeMounts:
+          - name: device-plugin
+            mountPath: /var/lib/kubelet/device-plugins
+      volumes:
+        - name: device-plugin
+          hostPath:
+            path: /var/lib/kubelet/device-plugins
+...
+</code></pre>
+<p>&#x4E00;&#x65E6;&#x9019;&#x689D;&#x8DEF;&#x901A;&#x4E0A;&#x4E4B;&#x5F8C;&#xFF0C; <strong>device plugin</strong> &#x5C31;&#x9700;&#x8981;&#x6E96;&#x5099;&#x4E00;&#x500B;&#x57FA;&#x65BC; <strong>RegisterRequest</strong> &#x683C;&#x5F0F;&#x7684;&#x5167;&#x5BB9;&#x53BB;&#x9032;&#x884C;&#x8A3B;&#x518A;&#xFF0C;&#x800C;&#x8A72;&#x683C;&#x5F0F;&#x5167;&#x5305;&#x542B;&#x4E86;&#x5E7E;&#x500B;&#x91CD;&#x8981;&#x8CC7;&#x8A0A;</p>
+<ol>
+<li>version
+&#x7576;&#x524D;&#x4F7F;&#x7528;&#x7684;&#x7248;&#x672C;&#x57FA;&#x672C;&#x4E0A;&#x53EF;&#x4EE5;&#x4F7F;&#x7528;&#x51FD;&#x5F0F;&#x5EAB;&#x5167;&#x7684;&#x8B8A;&#x6578;&#x5373;&#x53EF;</li>
+<li>endpoint
+&#x5F8C;&#x7E8C;&#x9032;&#x884C; <strong>ListAndWatch</strong>, <strong>Allocate</strong> &#x7B49;&#x76F8;&#x95DC;&#x64CD;&#x4F5C;&#x4F7F;&#x7528;&#x7684; <strong>Unix-Socket</strong>&#x3002;</li>
+<li>resoruce_name
+&#x9810;&#x8A3B;&#x518A;&#x7684; <strong>device</strong> &#x540D;&#x7A31;&#xFF0C;&#x5176;&#x6709;&#x898F;&#x7BC4;&#xFF0C;&#x901A;&#x5E38;&#x662F; vendor-name/device-name</li>
+<li>DevicePluginOptions
+&#x7576;&#x524D;&#x7684; device plugin &#x6709;&#x54EA;&#x4E9B;&#x984D;&#x5916;&#x53C3;&#x6578;&#x8981;&#x8A2D;&#x5B9A;&#xFF0C;&#x76EE;&#x524D;&#x53EA;&#x6709;&#x662F;&#x5426;&#x9700;&#x8981; <strong>pre-start-hook</strong> &#x7684;&#x9078;&#x9805;</li>
+</ol>
+<p>&#x4E00;&#x65E6;&#x8A3B;&#x518A;&#x6210;&#x529F;&#xFF0C;&#x4E4B;&#x5F8C; <strong>kubelet</strong> &#x5C31;&#x6703;&#x4F7F;&#x7528; <strong>endpoint</strong> &#x4E2D;&#x63CF;&#x8FF0;&#x7684; <strong>UNIX Socket</strong> &#x4F86;&#x8207; <strong>device plugin</strong> &#x9032;&#x884C;&#x6E9D;&#x901A;&#x3002;</p>
+<pre><code class="lang-go=">message RegisterRequest {
+    // Version of the API the Device Plugin was built against
+    string version = 1;
+    // Name of the unix socket the device plugin is listening on
+    // PATH = path.Join(DevicePluginPath, endpoint)
+    string endpoint = 2;
+    // Schedulable resource name. As of now it&apos;s expected to be a DNS Label
+    string resource_name = 3;
+        // Options to be communicated with Device Manager
+        DevicePluginOptions options = 4;
+}
+</code></pre>
+<p>&#x9019;&#x610F;&#x5473;&#x8005;&#x4E00;&#x500B;&#x6709;&#x6548;&#x7684; <strong>device plugin</strong> &#x6703;&#x900F;&#x904E;&#x5169;&#x500B;&#x4E0D;&#x540C;&#x7684; <strong>UNIX socket</strong> &#x4F86;&#x8207; <strong>kubelet</strong> &#x6E9D;&#x901A;&#xFF0C;&#x4E00;&#x500B;&#x662F;&#x56FA;&#x5B9A;&#x4F4D;&#x7F6E;&#xFF0C;&#x5C08;&#x9580;&#x7528;&#x4F86;&#x8A3B;&#x518A;&#x7684;&#xFF0C;&#x53E6;&#x5916;&#x4E00;&#x500B;&#x5247;&#x662F;&#x6BCF;&#x500B; <strong>device plugin</strong> &#x81EA;&#x884C;&#x8A2D;&#x5B9A;&#x7684;&#x4F4D;&#x7F6E;&#xFF0C;&#x53EA;&#x8981; <strong>kubelet</strong> &#x80FD;&#x5920;&#x5B58;&#x53D6;&#x5373;&#x53EF;&#x3002;</p>
+<h1 id="allocate">Allocate</h1>
+<p>&#x63A5;&#x4E0B;&#x4F86;&#x63A2;&#x8A0E;&#x4E00;&#x4E0B;&#x6700;&#x91CD;&#x8981;&#x7684; <strong>Allocate</strong> &#x7684;&#x51FD;&#x5F0F;&#xFF0C;&#x4E3B;&#x8981;&#x662F;&#x8981;&#x5C0D;&#x9019;&#x500B;&#x51FD;&#x5F0F;&#x6709;&#x9EDE;&#x5927;&#x6982;&#x7684;&#x77AD;&#x89E3;&#xFF0C;&#x5247;&#x63A5;&#x4E0B;&#x4F86;&#x53BB;&#x770B;&#x4EFB;&#x4F55;&#x7684; <strong>device plugin</strong> &#x89E3;&#x6C7A;&#x65B9;&#x6848;&#x90FD;&#x6703;&#x66F4;&#x5BB9;&#x6613;&#x7406;&#x89E3;&#x5176;&#x5BE6;&#x4F5C;&#x908F;&#x8F2F;&#x3002;</p>
+<p>&#x9996;&#x5148;&#x6211;&#x5011;&#x77E5;&#x9053;&#xFF0C;&#x4F7F;&#x7528;&#x8005;&#x53EF;&#x4EE5;&#x65BC; <strong>Pod</strong> &#x4E2D;&#x53BB;&#x8981;&#x6C42;<strong>&#x6574;&#x6578;&#x6578;&#x91CF;</strong>&#x7684; <strong>device</strong>&#xFF0C;&#x7576;&#x9019;&#x4E9B;&#x9700;&#x6C42;&#x6700;&#x5F8C;&#x88AB; <strong>kubelet</strong> &#x8F49;&#x63DB;&#x70BA;&#x5BE6;&#x969B;&#x9700;&#x6C42;&#x9001;&#x5230; <strong>device plugin gRPC</strong> &#x670D;&#x52D9;&#x5668;&#x6642;&#xFF0C;&#x5C31;&#x6703;&#x8B8A;&#x6210;&#x4E00;&#x500B;&#x4EE5;&#x9663;&#x5217;&#x578B;&#x614B;&#x8868;&#x793A;&#x7684; <strong>deviceID</strong>&#x3002;</p>
+<p><strong>device plugin</strong> &#x672C;&#x8EAB;&#x4F9D;&#x64DA;&#x9019;&#x4E9B;&#x6D41;&#x6C34;&#x865F;&#x7684; <strong>id</strong> &#x53BB;&#x5206;&#x914D;&#x5C0D;&#x61C9;&#x7684; <strong>device</strong> &#x8CC7;&#x6E90;&#xFF0C;&#x800C;&#x5206;&#x914D;&#x7684;&#x65B9;&#x5F0F;&#x8207;&#x5167;&#x5BB9;&#x90FD;&#x6703;&#x65BC;&#x5176;&#x56DE;&#x50B3;&#x5C01;&#x5305; <strong> AllocateResponse</strong> &#x4E2D;&#x8A2D;&#x5B9A;&#x3002;</p>
+<pre><code class="lang-go=">// - Allocate is expected to be called during pod creation since allocation
+//   failures for any container would result in pod startup failure.
+// - Allocate allows kubelet to exposes additional artifacts in a pod&apos;s
+//   environment as directed by the plugin.
+// - Allocate allows Device Plugin to run device specific operations on
+//   the Devices requested
+message AllocateRequest {
+    repeated ContainerAllocateRequest container_requests = 1;
+}
+
+message ContainerAllocateRequest {
+    repeated string devicesIDs = 1;
+}
+</code></pre>
+<p>&#x5F80;&#x4E0B;&#x63A2;&#x8A0E;&#x4E4B;&#x524D;&#xFF0C;&#x5148;&#x4F86;&#x8907;&#x7FD2;&#x4E00;&#x9EDE;&#x6771;&#x897F;&#xFF0C;&#x5C31;&#x662F;&#x6240;&#x8B02;&#x7684; <strong>device</strong> &#x5230;&#x5E95;&#x8DDF;&#x5BB9;&#x5668;&#x53EF;&#x4EE5;&#x600E;&#x9EBC;&#x7528;?
+&#x4EE5; <strong>docker</strong> &#x70BA;&#x7BC4;&#x4F8B;&#xFF0C;&#x5E38;&#x5E38;&#x4F7F;&#x7528; <strong>volume</strong> &#x6703;&#x77E5;&#x9053;&#x53EF;&#x4EE5;&#x900F;&#x904E; <strong>-v</strong> &#x7684;&#x65B9;&#x5F0F;&#x6A19;&#x660E;&#x4F86;&#x6E90;&#x8207;&#x76EE;&#x7684;&#x7684;&#x6620;&#x5C04;&#x95DC;&#x4FC2;&#xFF0C;&#x60F3;&#x8981;&#x8907;&#x96DC;&#x4E00;&#x9EDE;&#x7684;&#x8A2D;&#x5B9A;&#x53EF;&#x4EE5;&#x63A1;&#x7528; <strong>--mount</strong> &#x4F86;&#x8655;&#x7406;&#x3002;
+&#x7136;&#x800C;&#x5C0D;&#x65BC; <strong>device</strong> &#x4F86;&#x8AAA;&#xFF0C;&#x4E5F;&#x6709;&#x5C0D;&#x61C9;&#x7684;&#x6307;&#x4EE4;&#xFF0C;&#x5C31;&#x662F; <strong>--device</strong></p>
+<p>&#x53EF;&#x4EE5;&#x53C3;&#x8003; Docker <a href="https://docs.docker.com/engine/reference/commandline/run/#add-host-device-to-container---device" target="_blank">&#x5B98;&#x7DB2;&#x7BC4;&#x4F8B;</a></p>
+<pre><code class="lang-bash=">$ docker run --device=/dev/sdc:/dev/xvdc \
+             --device=/dev/sdd --device=/dev/zero:/dev/nulo \
+             -i -t \
+             ubuntu ls -l /dev/{xvdc,sdd,nulo}
+
+brw-rw---- 1 root disk 8, 2 Feb  9 16:05 /dev/xvdc
+brw-rw---- 1 root disk 8, 3 Feb  9 16:05 /dev/sdd
+crw-rw-rw- 1 root root 1, 5 Feb  9 16:05 /dev/nulo
+</code></pre>
+<p>&#x7531;&#x4E0A;&#x8FF0;&#x53EF;&#x4EE5;&#x770B;&#x5230;&#x5176;&#x4F7F;&#x7528;&#x65B9;&#x5F0F;&#x8207; <strong>volume(mount)</strong> &#x76F8;&#x4F3C;&#xFF0C;&#x90FD;&#x662F;&#x900F;&#x904E;&#x8DEF;&#x5F91;&#x7684;&#x65B9;&#x5F0F;&#x4F86;&#x8655;&#x7406;&#x3002;
+&#x6709;&#x4E86;&#x9019;&#x500B;&#x6982;&#x5FF5;&#xFF0C;&#x63A5;&#x4E0B;&#x4F86;&#x5C31;&#x53EF;&#x4EE5;&#x770B;&#x4E00;&#x4E0B; <strong>Allocate</strong> &#x9019;&#x500B;&#x51FD;&#x5F0F;&#x7684;&#x56DE;&#x50B3;&#x503C; <strong>AllocateResponse</strong> &#x7684;&#x683C;&#x5F0F;&#x3002;</p>
+<p>&#x9996;&#x5148; <strong>Request</strong> &#x53EF;&#x4EE5;&#x8981;&#x6C42;&#x591A;&#x500B; <strong>device</strong>&#xFF0C;&#x6240;&#x4EE5; <strong>Response</strong> &#x672C;&#x8EAB;&#x7684;&#x56DE;&#x50B3;&#x4E5F;&#x6703;&#x662F;&#x4E00;&#x500B;&#x9663;&#x5217;&#xFF0C;&#x800C;&#x6BCF;&#x500B;&#x9663;&#x5217;&#x90FD;&#x662F;&#x4E00;&#x500B;&#x57FA;&#x65BC; <strong>ContainerAllocateResponse</strong> &#x7684;&#x683C;&#x5F0F;&#x3002;</p>
+<p>&#x8A72;&#x683C;&#x5F0F;&#x4F7F;&#x7528;&#x4E86;&#x56DB;&#x500B;&#x6B04;&#x4F4D;&#x4F86;&#x8F14;&#x52A9;&#xFF0C;&#x5206;&#x5225;&#x662F;</p>
+<ol>
+<li>envs</li>
+<li>mounts</li>
+<li>devices</li>
+<li>annotations</li>
+</ol>
+<pre><code class="lang-go=">// AllocateResponse includes the artifacts that needs to be injected into
+// a container for accessing &apos;deviceIDs&apos; that were mentioned as part of
+// &apos;AllocateRequest&apos;.
+// Failure Handling:
+// if Kubelet sends an allocation request for dev1 and dev2.
+// Allocation on dev1 succeeds but allocation on dev2 fails.
+// The Device plugin should send a ListAndWatch update and fail the
+// Allocation request
+message AllocateResponse {
+    repeated ContainerAllocateResponse container_responses = 1;
+}
+
+message ContainerAllocateResponse {
+      // List of environment variable to be set in the container to access one of more devices.
+    map&lt;string, string&gt; envs = 1;
+    // Mounts for the container.
+    repeated Mount mounts = 2;
+    // Devices for the container.
+    repeated DeviceSpec devices = 3;
+    // Container annotations to pass to the container runtime
+    map&lt;string, string&gt; annotations = 4;
+}
+</code></pre>
+<p>&#x5176;&#x4E2D;&#x6700;&#x91CD;&#x8981;&#x7684;&#x5C31;&#x662F; <strong>mounts</strong> &#x4EE5;&#x53CA; <strong>devics</strong>&#xFF0C;&#x5176;&#x683C;&#x5F0F;&#x5982;&#x4E0B;&#xFF0C;&#x53EF;&#x4EE5;&#x770B;&#x5230;&#x683C;&#x5F0F;&#x975E;&#x5E38;&#x985E;&#x4F3C;&#xFF0C;&#x4E5F;&#x975E;&#x5E38;&#x6E05;&#x695A;</p>
+<ol>
+<li>host_path</li>
+<li>container_path</li>
+<li>read_only/permissions</li>
+</ol>
+<p>&#x5176;&#x4E2D;&#x524D;&#x9762;&#x5169;&#x500B;&#x8CC7;&#x8A0A;&#x662F;&#x4E0D;&#x662F;&#x8207;&#x6211;&#x5011;&#x524D;&#x8FF0;&#x7684; <strong>docekr</strong> &#x7BC4;&#x4F8B;&#x975E;&#x5E38;&#x76F8;&#x4F3C;&#xFF1F;
+&#x900F;&#x904E;&#x7528;&#x8DEF;&#x5F91;&#x7684;&#x65B9;&#x5F0F;&#x53BB;&#x8868;&#x9054;&#x6B32;&#x639B;&#x8F09;&#x5230;&#x76EE;&#x6A19;&#x5BB9;&#x5668;&#x5167;&#x7684; <strong>volume</strong> &#x6216;&#x662F; <strong>devices</strong> </p>
+<p>&#x6240;&#x4EE5;&#x56DE;&#x50B3;&#x7684;&#x683C;&#x5F0F;&#x53EF;&#x80FD;&#x5982;&#x4E0B;</p>
+<pre><code class="lang-json=">&quot;devics&quot;:[
+            {
+                container_path: &quot;/dev/sda1&quot;,
+                host_path: &quot;/dev/sda1&quot;,
+                permissoin: &quot;rwm&quot;
+            },
+            {
+                container_path: &quot;/dev/sda2&quot;,
+                host_path: &quot;/dev/sda2&quot;,
+                permissoin: &quot;rwm&quot;
+            },
+            {
+                container_path: &quot;/dev/sda3&quot;,
+                host_path: &quot;/dev/sda3&quot;,
+                permissoin: &quot;rwm&quot;
+            },
+    ]
+</code></pre>
+<pre><code class="lang-go=">// Mount specifies a host volume to mount into a container.
+// where device library or tools are installed on host and container
+message Mount {
+    // Path of the mount within the container.
+    string container_path = 1;
+    // Path of the mount on the host.
+    string host_path = 2;
+    // If set, the mount is read-only.
+    bool read_only = 3;
+}
+
+// DeviceSpec specifies a host device to mount into a container.
+message DeviceSpec {
+    // Path of the device within the container.
+    string container_path = 1;
+    // Path of the device on the host.
+    string host_path = 2;
+    // Cgroups permissions of the device, candidates are one or more of
+    // * r - allows container to read from the specified device.
+    // * w - allows container to write to the specified device.
+    // * m - allows container to create device files that do not yet exist.
+    string permissions = 3;
+}
+</code></pre>
+<p>&#x770B;&#x5230;&#x9019;&#x908A;&#x5C0D;&#x65BC; <strong>Allocate</strong> &#x5DF2;&#x7D93;&#x6709;&#x4E00;&#x500B;&#x57FA;&#x672C;&#x7684;&#x6982;&#x5FF5;&#x4E86;&#xFF0C;&#x5C0D;&#x65BC; <strong>device plugin</strong> &#x7684;&#x89E3;&#x6C7A;&#x65B9;&#x6848;&#x4F86;&#x8AAA;&#xFF0C;&#x6839;&#x64DA;&#x9700;&#x6C42;&#x53BB;&#x914D;&#x7F6E;&#x9700;&#x8981;&#x7684; <strong>device</strong>&#xFF0C;&#x5982;&#x679C;&#x6709;&#x9700;&#x8981;&#x4E5F;&#x53EF;&#x4EE5;&#x6E96;&#x5099;&#x76F8;&#x95DC;&#x7684; <strong>volume</strong>&#xFF0C;&#x6700;&#x5F8C;&#x4E00;&#x8D77;&#x5C07;&#x9019;&#x4E9B;&#x8DEF;&#x5F91;&#x56DE;&#x50B3;&#x56DE;&#x53BB;&#xFF0C;&#x9019;&#x6A23;&#x5C0D;&#x61C9;&#x7684; <strong>Pod</strong> &#x518D;&#x555F;&#x52D5;&#x7684;&#x6642;&#x5019;&#x5C31;&#x6703;&#x900F;&#x904E;&#x985E;&#x4F3C; <strong>docekr --device xxx --mount</strong> &#x7684;&#x65B9;&#x5F0F;&#x628A;&#x9019;&#x4E9B;&#x8CC7;&#x8A0A;&#x90FD;&#x639B;&#x8F09;&#x5230;&#x5BB9;&#x5668;&#x5167;&#x4F7F;&#x7528;&#x3002;</p>
+<h1 id="summary">Summary</h1>
+<p>&#x672C;&#x6587;&#x900F;&#x904E;&#x5BE6;&#x969B;&#x63A2;&#x7D22; <strong>device plugin</strong> &#x6846;&#x67B6;&#x7684;&#x9762;&#x8C8C;&#x4F86;&#x5B78;&#x7FD2;&#x5176;&#x89E3;&#x6C7A;&#x65B9;&#x6848;&#x6703;&#x600E;&#x9EBC;&#x8A2D;&#x8A08;&#xFF0C;&#x76F8;&#x5C0D;&#x65BC; <strong>CRI/CNI/CSI</strong>&#xFF0C; &#x6574;&#x500B; <strong>device plugin</strong> &#x7684;&#x5167;&#x5BB9;&#x975E;&#x5E38;&#x7C21;&#x55AE;&#xFF0C;&#x53EA;&#x6709;&#x5C11;&#x5C11;&#x56DB;&#x500B;&#x4ECB;&#x9762;&#x9700;&#x8981;&#x8A2D;&#x8A08;&#xFF0C;&#x4E5F;&#x56E0;&#x70BA;&#x5982;&#x6B64;&#x7684;&#x8A2D;&#x8A08;&#x80FD;&#x5920;&#x8B93;&#x7B2C;&#x4E09;&#x65B9;&#x89E3;&#x6C7A;&#x65B9;&#x6848;&#x7684;&#x4EBA;&#x54E1;&#xFF0C;&#x5C08;&#x5FC3;&#x81F4;&#x529B;&#x65BC; <strong>device</strong> &#x7684;&#x8655;&#x7406;&#x8207;&#x958B;&#x767C;&#xFF0C;&#x5C31;&#x53EF;&#x4EE5;&#x5F88;&#x9806;&#x5229;&#x7684;&#x929C;&#x63A5;&#x5230; <strong>kubernetes</strong> &#x53E2;&#x96C6;&#x904B;&#x7B97;&#x4E2D;&#x3002;</p>
+<h1 id="&#x53C3;&#x8003;">&#x53C3;&#x8003;</h1>
+<ul>
+<li><a href="https://github.com/kubernetes/community/blob/master/contributors/design-proposals/resource-management/device-plugin.md#device-manager-proposal" target="_blank">https://github.com/kubernetes/community/blob/master/contributors/design-proposals/resource-management/device-plugin.md#device-manager-proposal</a></li>
+<li><a href="https://github.com/kubernetes/kubernetes/blob/master/pkg/kubelet/apis/deviceplugin/v1beta1/api.proto" target="_blank">https://github.com/kubernetes/kubernetes/blob/master/pkg/kubelet/apis/deviceplugin/v1beta1/api.proto</a></li>
+</ul>
+
+                                
+                                </section>
+                            
+    </div>
+    <div class="search-results">
+        <div class="has-results">
+            
+            <h1 class="search-results-title"><span class='search-results-count'></span> results matching "<span class='search-query'></span>"</h1>
+            <ul class="search-results-list"></ul>
+            
+        </div>
+        <div class="no-results">
+            
+            <h1 class="search-results-title">No results matching "<span class='search-query'></span>"</h1>
+            
+        </div>
+    </div>
+</div>
+
+                        </div>
+                    </div>
+                
+            </div>
+
+            
+                
+                <a href="day23.html" class="navigation navigation-prev " aria-label="Previous page: Device Plugin Introduction">
+                    <i class="fa fa-angle-left"></i>
+                </a>
+                
+                
+                <a href="day25.html" class="navigation navigation-next " aria-label="Next page: RDMA">
+                    <i class="fa fa-angle-right"></i>
+                </a>
+                
+            
+        
+    </div>
+
+    <script>
+        var gitbook = gitbook || [];
+        gitbook.push(function() {
+            gitbook.page.hasChanged({"page":{"title":"Device Plugin - Kubernetes","level":"1.2.6.2","depth":3,"next":{"title":"RDMA","level":"1.2.6.3","depth":3,"path":"2019/device-plugin/day25.md","ref":"2019/device-plugin/day25.md","articles":[]},"previous":{"title":"Device Plugin Introduction","level":"1.2.6.1","depth":3,"path":"2019/device-plugin/day23.md","ref":"2019/device-plugin/day23.md","articles":[]},"dir":"ltr"},"config":{"gitbook":"*","theme":"default","variables":{},"plugins":[],"pluginsConfig":{"highlight":{},"search":{},"lunr":{"maxIndexSize":1000000,"ignoreSpecialCharacters":false},"sharing":{"facebook":true,"twitter":true,"google":false,"weibo":false,"instapaper":false,"vk":false,"all":["facebook","google","twitter","weibo","instapaper"]},"fontsettings":{"theme":"white","family":"sans","size":2},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56}},"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"}},"file":{"path":"2019/device-plugin/day24.md","mtime":"2021-12-14T03:18:27.656Z","type":"markdown"},"gitbook":{"version":"3.2.3","time":"2021-12-14T03:20:41.769Z"},"basePath":"../..","book":{"language":""}});
+        });
+    </script>
+</div>
+
+        
+    <script src="../../gitbook/gitbook.js"></script>
+    <script src="../../gitbook/theme.js"></script>
+    
+        
+        <script src="../../gitbook/gitbook-plugin-search/search-engine.js"></script>
+        
+    
+        
+        <script src="../../gitbook/gitbook-plugin-search/search.js"></script>
+        
+    
+        
+        <script src="../../gitbook/gitbook-plugin-lunr/lunr.min.js"></script>
+        
+    
+        
+        <script src="../../gitbook/gitbook-plugin-lunr/search-lunr.js"></script>
+        
+    
+        
+        <script src="../../gitbook/gitbook-plugin-sharing/buttons.js"></script>
+        
+    
+        
+        <script src="../../gitbook/gitbook-plugin-fontsettings/fontsettings.js"></script>
+        
+    
+
+    </body>
+</html>
+
